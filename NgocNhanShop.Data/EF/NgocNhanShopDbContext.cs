@@ -19,7 +19,7 @@ namespace NgocNhanShop.EF.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new ProductConfiguration());
-            modelBuilder.ApplyConfiguration(new ProductConfiguration());
+            modelBuilder.ApplyConfiguration(new CategoryConfiguration());
             modelBuilder.ApplyConfiguration(new AppUserConfiguration());
             modelBuilder.ApplyConfiguration(new AppRoleConfiguration());
 
@@ -31,6 +31,6 @@ namespace NgocNhanShop.EF.Data
             //base.OnModelCreating(modelBuilder);
         }
         public DbSet<Product> Products { get; set; }
-        public DbSet<Category> Categories { get; set; }
+        public DbSet<Categories> Categories { get; set; }
     }
 }

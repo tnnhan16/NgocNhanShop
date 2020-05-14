@@ -7,9 +7,9 @@ using System.Text;
 
 namespace NgocNhanShop.Data.Configurations
 {
-    public class CategoryConfiguration : IEntityTypeConfiguration<Category>
+    public class CategoryConfiguration : IEntityTypeConfiguration<Categories>
     {
-        public void Configure(EntityTypeBuilder<Category> builder)
+        public void Configure(EntityTypeBuilder<Categories> builder)
         {
             builder.ToTable("Categories");
             builder.HasKey(x => x.Id);
