@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using NgocNhanShop.Business.Catelog.Category.Dtos;
 using NgocNhanShop.Business.Catelog.Prodcuts.Dtos;
+using NgocNhanShop.Business.System.Dtos;
 using NgocNhanShop.Data.Entities;
 using System;
 using System.Collections.Generic;
@@ -12,15 +13,31 @@ namespace NgocNhanShop.Business.AutoMapper
     {
         public MappingProfile()
         {
-            //mapping product
-            CreateMap<Product, ProductCreateRequest>();
-            CreateMap<Product, ProductUpdateRequest>();
-            CreateMap<Product, ProductViewModel>();
+            //mapping product create
+            CreateMap<ProductCreateRequest, Product>()
+                .ForMember(n => n.CreateTime, t => t.MapFrom(o => DateTime.Now))
+                .ForMember(n => n.UpdateTime, t => t.MapFrom(o => DateTime.Now))
+                .ForMember(n => n.IsDelete, t => t.MapFrom(o => false));
 
-            //mapping category
-            CreateMap<Categories, CategoryCreateRequest>();
-            CreateMap<Categories, CategoryUpdateRequest>();
-            CreateMap<Categories, CategoryViewModel>();
+            //mapping product update
+            CreateMap<ProductUpdateRequest, Product>()
+                .ForMember(n => n.UpdateTime, t => t.MapFrom(o => DateTime.Now)).ReverseMap();
+
+            CreateMap<Product, ProductViewModel>().ReverseMap();
+
+            //mapping category create
+            CreateMap<CategoryCreateRequest, Categories>()
+                .ForMember(n => n.CreateTime, t => t.MapFrom(o => DateTime.Now))
+                .ForMember(n => n.UpdateTime, t => t.MapFrom(o => DateTime.Now))
+                .ForMember(n => n.IsDelete, t => t.MapFrom(o => false));
+
+            //mapping category update
+            CreateMap<CategoryUpdateRequest, Categories>()
+                .ForMember(n => n.UpdateTime, t => t.MapFrom(o => DateTime.Now)).ReverseMap();
+
+            CreateMap<Categories, CategoryViewModel>().ReverseMap();
+
+            CreateMap<UserRegisterRequest, AppUser>();
         }
     }
 }

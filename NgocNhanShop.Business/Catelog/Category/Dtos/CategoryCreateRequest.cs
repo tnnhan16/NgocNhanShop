@@ -9,9 +9,9 @@ namespace NgocNhanShop.Business.Catelog.Category.Dtos
     {
         public string Name { get; set; }
         public int? ParentId { get; set; }
-        public Status Status { get; set; } = Status.Active;
-        public DateTime CreateTime { get; set; } = DateTime.Now;
-        public Guid UserCreate { get; set; }
-        public bool IsDelete { get; set; } = false;
+        public Status Status { get; set; }
+        public DateTime? CreateTime { get; set; }
+        public Guid? UserCreate { get; set; }
+        public bool? IsDelete { get; set; }
     }
 }

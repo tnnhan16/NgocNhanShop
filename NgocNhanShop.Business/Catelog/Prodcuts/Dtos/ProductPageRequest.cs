@@ -5,9 +5,9 @@ using System.Text;
 
 namespace NgocNhanShop.Business.Catelog.Prodcuts.Dtos
 {
-    public class CategoryPageRequest: PageRequestBase
+    public class ProductPageRequest : PageRequestBase
     {
-        public string KeyWork { get; set; }
-        public int CategoryId { get; set; }
+        public string? KeyWork { get; set; }
+        public int? CategoryId { get; set; }
     }
 }

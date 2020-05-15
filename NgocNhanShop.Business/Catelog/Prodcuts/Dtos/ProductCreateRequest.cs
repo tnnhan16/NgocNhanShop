@@ -8,9 +8,9 @@ namespace NgocNhanShop.Business.Catelog.Prodcuts.Dtos
     {
         public string Name { get; set; }
         public decimal Price { get; set; }
-        public DateTime CreateTime { get; set; } = DateTime.Now;
+        public DateTime? CreateTime { get; set; }
         public Guid UserCreate { get; set; }
-        public bool IsDelete { get; set; } = false;
+        public bool? IsDelete { get; set; }
         public int CategoryId { get; set; }
     }
 }

@@ -22,7 +22,7 @@ namespace NgocNhanShop.Business.Catelog.Category
             _context = context;
             _mapper = mapper;
         }
-        public async Task<int> CreateCategoryAsync(CategoryCreateRequest request)
+        public async Task<Categories> CreateCategory(CategoryCreateRequest request)
         {
             var category = _mapper.Map<Categories>(request);
             if(category == null)
@@ -30,7 +30,8 @@ namespace NgocNhanShop.Business.Catelog.Category
                 throw new NgocNhanShopException($"Cannot create category");
             }
             _context.Categories.Add(category);
-            return await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
+            return category;
         }
 
         public async Task<int> DeleteCategory(int CategoryId)
@@ -68,7 +69,7 @@ namespace NgocNhanShop.Business.Catelog.Category
             return pageResult;
         }
 
-        public async Task<CategoryViewModel> GetByProductId(int CategoryId)
+        public async Task<CategoryViewModel> GetByCategoryId(int CategoryId)
         {
             var category = await _context.Categories.FindAsync(CategoryId);
             if(category == null)
@@ -85,7 +86,7 @@ namespace NgocNhanShop.Business.Catelog.Category
             {
                 throw new NgocNhanShopException($"Cannot find category id {CategoryId}");
             }
-            category = _mapper.Map<Categories>(request);
+            category = _mapper.Map<CategoryUpdateRequest, Categories>(request, category);
             return await _context.SaveChangesAsync();
         }
     }
