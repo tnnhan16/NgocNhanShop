@@ -22,17 +22,18 @@ namespace NgocNhanShop.Business.Catelog.Prodcuts
             _context = context;
             _mapper = mapper;
         }
-        public async Task<int> CreateProduct(ProductCreateRequest request)
+        public async Task<Product> CreateProduct(ProductCreateRequest request)
         {
             var product = _mapper.Map<Product>(request);
             _context.Products.Add(product);
-            return await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
+            return product;
         }
 
         public async Task<int> DeleteProduct(int ProductId)
         {
-            var product = await _context.Products.FirstAsync(x => x.Id == ProductId);
-            if(product == null)
+            var product = await _context.Products.FindAsync(ProductId);
+            if (product == null)
             {
                 throw new NgocNhanShopException($"Cannot find product id {ProductId}");
             }
@@ -40,24 +41,38 @@ namespace NgocNhanShop.Business.Catelog.Prodcuts
             return await _context.SaveChangesAsync();
         }
 
-        public async Task<PageResult<ProductViewModel>> GetAllPaging(CategoryPageRequest request)
+        public async Task<List<ProductViewModel>> GetAll()
+        {
+            var products = await _context.Products.ToListAsync();
+            return _mapper.Map<List<ProductViewModel>>(products);
+        }
+
+        public async Task<PageResult<ProductViewModel>> GetAllPaging(ProductPageRequest request)
         {
 
-            var query = from p in _context.Products
-                        join c in _context.Categories on p.Id equals c.Id
-                        select new { p, c };
-            if (!string.IsNullOrEmpty(request.KeyWork))
+            var query = (from p in _context.Products
+                        join c in _context.Categories on p.CategoryId equals c.Id
+                        select new { p,c });
+            if (!String.IsNullOrEmpty(request.KeyWork))
             {
-                query = query.Where(x => x.p.Name.Contains(request.KeyWork))
-                    .Where(x=>x.c.Name.Contains(request.KeyWork));
+                query = query.Where(x => x.p.Name.Contains(request.KeyWork) || x.c.Name.Contains(request.KeyWork));
+                   
             }
-            if(request.CategoryId > 0)
+            if (request.CategoryId > 0)
             {
                 query = query.Where(x => x.c.Id == request.CategoryId);
             }
-            var listProduct = await query.ToListAsync();
+            var products = await query.Select(x=> new ProductViewModel 
+            { 
+                Id = x.p.Id,
+                Name = x.p.Name,
+                CategoryName = x.c.Name,
+                Price = x.p.Price,
+                UserCreate = x.p.UserCreate,
+                CreateTime = x.p.CreateTime
+            }).ToListAsync();
 
-            var products = _mapper.Map<List<ProductViewModel>>(listProduct);
+            //var products = _mapper.Map<List<ProductViewModel>>(listProduct);
 
             var total = await query.CountAsync();
 
@@ -75,7 +90,7 @@ namespace NgocNhanShop.Business.Catelog.Prodcuts
         public async Task<ProductViewModel> GetByProductId(int ProductId)
         {
             var product = await _context.Products.FindAsync(ProductId);
-            if(product == null)
+            if (product == null)
             {
                 throw new NgocNhanShopException($"Cannot find product id {ProductId}");
             }
@@ -89,7 +104,9 @@ namespace NgocNhanShop.Business.Catelog.Prodcuts
             {
                 throw new NgocNhanShopException($"Cannot find product id {ProductId}");
             }
-            product = _mapper.Map<Product>(request);
+
+            _mapper.Map<ProductUpdateRequest,Product >(request,product);
+
             return await _context.SaveChangesAsync();
         }
     }

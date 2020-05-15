@@ -14,7 +14,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NgocNhanShop.Data", "NgocNh
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NgocNhanShop.Business", "NgocNhanShop.Business\NgocNhanShop.Business.csproj", "{87350ED8-9E44-430B-BBE7-3AE0D1BED8D2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NgocNhanShop.Utilities", "NgocNhanShop.Utilities\NgocNhanShop.Utilities.csproj", "{8CB404A9-40F6-41BF-81EB-5C20DB3D49AF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NgocNhanShop.Utilities", "NgocNhanShop.Utilities\NgocNhanShop.Utilities.csproj", "{8CB404A9-40F6-41BF-81EB-5C20DB3D49AF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NgocNhanShop.Api", "NgocNhanShop.Api\NgocNhanShop.Api.csproj", "{7CAF9751-9BE4-4689-AAFA-3D1AF5B9F65B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -38,6 +40,10 @@ Global
 		{8CB404A9-40F6-41BF-81EB-5C20DB3D49AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8CB404A9-40F6-41BF-81EB-5C20DB3D49AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8CB404A9-40F6-41BF-81EB-5C20DB3D49AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7CAF9751-9BE4-4689-AAFA-3D1AF5B9F65B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CAF9751-9BE4-4689-AAFA-3D1AF5B9F65B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CAF9751-9BE4-4689-AAFA-3D1AF5B9F65B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CAF9751-9BE4-4689-AAFA-3D1AF5B9F65B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
