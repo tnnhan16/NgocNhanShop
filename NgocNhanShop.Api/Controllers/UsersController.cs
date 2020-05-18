@@ -22,7 +22,7 @@ namespace NgocNhanShop.Api.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromForm]UserLoginRequest request)
+        public async Task<IActionResult> Login([FromBody]UserLoginRequest request)
         {
             if (!ModelState.IsValid)
             {
@@ -37,7 +37,7 @@ namespace NgocNhanShop.Api.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register([FromForm]UserRegisterRequest request)
+        public async Task<IActionResult> Register([FromBody]UserRegisterRequest request)
         {
             if (!ModelState.IsValid)
             {
