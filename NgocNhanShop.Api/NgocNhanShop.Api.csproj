@@ -5,6 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentValidation.AspNetCore" Version="8.6.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.4" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.2" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.4.1" />
   </ItemGroup>
@@ -13,6 +15,7 @@
     <ProjectReference Include="..\NgocNhanShop.Business\NgocNhanShop.Business.csproj" />
     <ProjectReference Include="..\NgocNhanShop.Data\NgocNhanShop.Data.csproj" />
     <ProjectReference Include="..\NgocNhanShop.Utilities\NgocNhanShop.Utilities.csproj" />
+    <ProjectReference Include="..\NgocNhanShop.Validator\NgocNhanShop.Validator.csproj" />
   </ItemGroup>
 
 </Project>

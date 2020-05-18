@@ -36,12 +36,12 @@ namespace NgocNhanShop.Business.System
             {
                 return null;
             }
-            var result = _signInManager.PasswordSignInAsync(user, request.Password, true, true);
-            if(result == null)
+            var result = await _signInManager.PasswordSignInAsync(user, request.Password, true, true);
+            if(!result.Succeeded)
             {
                 return null;
             }
-            var roles = _userManager.GetRolesAsync(user);
+            var roles = await _userManager.GetRolesAsync(user);
             var claim = new Claim[]
             {
                 new Claim(ClaimTypes.Email,user.Email),
