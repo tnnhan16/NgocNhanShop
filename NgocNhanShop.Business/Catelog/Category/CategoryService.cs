@@ -54,15 +54,15 @@ namespace NgocNhanShop.Business.Catelog.Category
             }
             var listCategory = await query.ToListAsync();
 
-            var categorys = _mapper.Map<List<CategoryViewModel>>(listCategory);
-
             var total = await query.CountAsync();
 
-            var result = categorys.Skip((request.PageIndex - 1) * request.PageSize).Take(request.PageSize).ToList();
+            var result = query.Skip((request.PageIndex - 1) * request.PageSize).Take(request.PageSize).ToListAsync();
+
+            var categorys = _mapper.Map<List<CategoryViewModel>>(result);
 
             var pageResult = new PageResult<CategoryViewModel>()
             {
-                Items = result,
+                Items = categorys,
                 Total = total,
             };
 

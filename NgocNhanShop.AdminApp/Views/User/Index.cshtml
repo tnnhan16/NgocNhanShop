@@ -1,0 +1,60 @@
+﻿@using NgocNhanShop.Business.Catelog.Dtos
+@model PageResult<NgocNhanShop.Business.System.Dtos.UserViewModel>
+@{
+    ViewData["Title"] = "Danh sách người dùng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h1>Index</h1>
+
+<p>
+    <a class="btn btn-primary" asp-action="Create" asp-controller="User">Tạo mới người dùng</a>
+</p>
+<table class="table table-striped table-hover table-bordered">
+    <thead>
+        <tr>
+            <th>Tên</th>
+            <th>Họ</th>
+            <th>Số điện thoại</th>
+            <th>Tài khoản</th>
+            <th>Email</th>
+            <th>Ngày sinh</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+            @foreach (var item in Model.Items)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FirstName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LastName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PhoneNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UserName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Birdthay)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+
+

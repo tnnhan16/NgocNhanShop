@@ -18,9 +18,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NgocNhanShop.Utilities", "N
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NgocNhanShop.Api", "NgocNhanShop.Api\NgocNhanShop.Api.csproj", "{7CAF9751-9BE4-4689-AAFA-3D1AF5B9F65B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NgocNhanShop.Validator", "NgocNhanShop.Validator\NgocNhanShop.Validator.csproj", "{11B87E31-5DB3-4A54-9C27-032C53B506CB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NgocNhanShop.AdminApp", "NgocNhanShop.AdminApp\NgocNhanShop.AdminApp.csproj", "{5B4F3955-EF32-4BE3-A1BA-C145BAB05268}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NgocNhanShop.AdminApp", "NgocNhanShop.AdminApp\NgocNhanShop.AdminApp.csproj", "{5B4F3955-EF32-4BE3-A1BA-C145BAB05268}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NgocNhanShop.Validator", "NgocNhanShop.Validator\NgocNhanShop.Validator.csproj", "{C03F396F-D9DB-4819-AB27-8AA2C53151C8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -48,14 +48,14 @@ Global
 		{7CAF9751-9BE4-4689-AAFA-3D1AF5B9F65B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7CAF9751-9BE4-4689-AAFA-3D1AF5B9F65B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7CAF9751-9BE4-4689-AAFA-3D1AF5B9F65B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{11B87E31-5DB3-4A54-9C27-032C53B506CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{11B87E31-5DB3-4A54-9C27-032C53B506CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{11B87E31-5DB3-4A54-9C27-032C53B506CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{11B87E31-5DB3-4A54-9C27-032C53B506CB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5B4F3955-EF32-4BE3-A1BA-C145BAB05268}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5B4F3955-EF32-4BE3-A1BA-C145BAB05268}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5B4F3955-EF32-4BE3-A1BA-C145BAB05268}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5B4F3955-EF32-4BE3-A1BA-C145BAB05268}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C03F396F-D9DB-4819-AB27-8AA2C53151C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C03F396F-D9DB-4819-AB27-8AA2C53151C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C03F396F-D9DB-4819-AB27-8AA2C53151C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C03F396F-D9DB-4819-AB27-8AA2C53151C8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

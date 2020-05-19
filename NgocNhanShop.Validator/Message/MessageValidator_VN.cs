@@ -23,6 +23,8 @@ namespace NgocNhanShop.Validator.Message
         public const string minDay = @"{0} không được nhỏ hơn {1} ngày hiện tại.";
 
         public const string isComformPassword = @"{0} không nhập khớp với mật khẩu trên.";
-        
+
+        public const string existUserName = @"{0} đã tồn tại trên hệ thống.";
+
     }
 }

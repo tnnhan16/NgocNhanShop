@@ -64,6 +64,8 @@ namespace NgocNhanShop.Api
 
             services.AddTransient<SignInManager<AppUser>, SignInManager<AppUser>>();
 
+            services.AddTransient<RoleManager<AppRole>, RoleManager<AppRole>>();
+
             services.AddTransient<IUserService, UserService>();
 
             services.AddControllers().AddFluentValidation(fv=>fv.RegisterValidatorsFromAssemblyContaining<UserLoginRequestValidator>());
@@ -146,9 +148,9 @@ namespace NgocNhanShop.Api
 
             app.UseStaticFiles();
 
-            app.UseRouting();
-
             app.UseAuthentication();
+
+            app.UseRouting();
 
             app.UseAuthorization();
 

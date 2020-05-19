@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NgocNhanShop.AdminApp.Service.User;
+using NgocNhanShop.AdminApp.Validator;
 using NgocNhanShop.Validator.Validator.Users;
 
 namespace NgocNhanShop.AdminApp
@@ -30,12 +31,17 @@ namespace NgocNhanShop.AdminApp
             services.AddHttpClient();
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
             {
-                options.LoginPath = "/User/Login/";
-                options.AccessDeniedPath = "/User/Forbidden/";
+                options.LoginPath = "/Login/Login/";
+                options.AccessDeniedPath = "/Login/Forbidden/";
             });
 
             services.AddControllersWithViews()
-                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<UserLoginRequestValidator>());
+                //.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<UserLoginRequestValidator>())
+                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<UserRegisterValidator>());
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
+            });
 
             services.AddTransient<IUserApiClient, UserApiClient>();
 
@@ -63,11 +69,16 @@ namespace NgocNhanShop.AdminApp
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
+
             app.UseStaticFiles();
+
+            app.UseAuthentication();
 
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {

@@ -32,11 +32,12 @@ namespace NgocNhanShop.Validator.Validator.Users
                 .GreaterThan(DateTime.Now.AddYears(-100)).WithMessage(String.Format(MessageValidator_VN.maxYear, "Ngày sinh", 100))
                 .LessThan(DateTime.Now).WithMessage(String.Format(MessageValidator_VN.minDay, "Ngày sinh", DateTime.Now.ToString()));
 
+            RuleFor(x => x.ComfirmPassword).NotEmpty().WithMessage(String.Format(MessageValidator_VN.isRequire, "Mật khẩu xác nhận"));
             RuleFor(x => x).Custom((request, context) =>
             {
                 if (request.Password != request.ComfirmPassword)
                 {
-                    context.AddFailure(String.Format(MessageValidator_VN.isComformPassword, "Mật khẩu xác nhận"));
+                    context.AddFailure("ComfirmPassword", String.Format(MessageValidator_VN.isComformPassword, "Mật khẩu xác nhận"));
                 }
             });
 

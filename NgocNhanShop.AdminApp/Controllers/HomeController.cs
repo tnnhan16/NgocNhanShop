@@ -11,7 +11,7 @@ using NgocNhanShop.AdminApp.Models;
 namespace NgocNhanShop.AdminApp.Controllers
 {
     [Authorize]
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         private readonly ILogger<HomeController> _logger;
 

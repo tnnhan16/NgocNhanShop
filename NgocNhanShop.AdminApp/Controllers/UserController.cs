@@ -1,23 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Logging;
-using Microsoft.IdentityModel.Tokens;
 using NgocNhanShop.AdminApp.Service.User;
 using NgocNhanShop.Business.System.Dtos;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using System.Xml.Schema;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+
 
 namespace NgocNhanShop.AdminApp.Controllers
 {
-    public class UserController : Controller
+    [Authorize]
+    public class UserController : BaseController
     {
         private readonly IUserApiClient _userApiClient;
 
@@ -27,46 +21,41 @@ namespace NgocNhanShop.AdminApp.Controllers
             _userApiClient = userApiClient;
             _configuration = configuration;
         }
-        [HttpGet]
-        public async Task<IActionResult> Login()
+
+        public async Task<IActionResult> Index(string keyword, int pageIndex = 1, int pageSize = 10)
         {
-            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            var sessions = HttpContext.Session.GetString("Token");
+            var request = new UserPageRequest()
+            {
+                BearerToken = sessions,
+                Keyword = keyword,
+                PageIndex = pageIndex,
+                PageSize = pageSize
+            };
+            var users = await _userApiClient.GetUsersPagings(request);
+            return View(users);
+        }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(UserLoginRequest request)
+        public async Task<IActionResult> Create(UserRegisterRequest request)
         {
             if (!ModelState.IsValid)
             {
                 return View();
             }
-            var token = await _userApiClient.Login(request);
-            var userPrincipal = this.ValidateToken(token);
-            var authProperties = new AuthenticationProperties
+            var result = await _userApiClient.RegisterUser(request);
+            if (result)
             {
-                ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(10),
-                IsPersistent = false,
-            };
-            await HttpContext.SignInAsync(
-                CookieAuthenticationDefaults.AuthenticationScheme,
-                userPrincipal,
-                authProperties
-            );
-            return RedirectToAction("Index","Home");
+                return RedirectToAction("Index", "User");
+            }
+            return View();
         }
 
-        private ClaimsPrincipal ValidateToken(string jwtToken)
-        {
-            IdentityModelEventSource.ShowPII = true;
-            SecurityToken validatedToken;
-            TokenValidationParameters validationParameters = new TokenValidationParameters();
-            validationParameters.ValidateLifetime = true;
-            validationParameters.ValidAudience = _configuration["Tokens:Issuer"];
-            validationParameters.ValidIssuer = _configuration["Tokens:Issuer"];
-            validationParameters.IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Tokens:Key"]));
-            ClaimsPrincipal principal = new JwtSecurityTokenHandler().ValidateToken(jwtToken,validationParameters, out validatedToken);
-            return principal;
-        }
     }
 }

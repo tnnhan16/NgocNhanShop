@@ -37,7 +37,7 @@ namespace NgocNhanShop.Business.AutoMapper
 
             CreateMap<Categories, CategoryViewModel>().ReverseMap();
 
-            CreateMap<UserRegisterRequest, AppUser>();
+            CreateMap<AppUser,UserRegisterRequest>().ReverseMap();
         }
     }
 }

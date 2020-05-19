@@ -1,4 +1,6 @@
-﻿using NgocNhanShop.Business.System.Dtos;
+﻿using NgocNhanShop.Business.Catelog.Dtos;
+using NgocNhanShop.Business.System.Dtos;
+using NgocNhanShop.Data.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -10,5 +12,8 @@ namespace NgocNhanShop.Business.System.Users
     {
         Task<string> Login(UserLoginRequest request);
         Task<bool> Register(UserRegisterRequest request);
+
+        Task<PageResult<UserViewModel>> GetUsersPaging(UserPageRequest request);
+        Task<AppUser>GetByUsername(string Username);
     }
 }
