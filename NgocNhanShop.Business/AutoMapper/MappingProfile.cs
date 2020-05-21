@@ -38,6 +38,8 @@ namespace NgocNhanShop.Business.AutoMapper
             CreateMap<Categories, CategoryViewModel>().ReverseMap();
 
             CreateMap<AppUser,UserRegisterRequest>().ReverseMap();
+            CreateMap< AppUser, UserUpdateRequest>();
+            
         }
     }
 }

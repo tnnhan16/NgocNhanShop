@@ -5,7 +5,7 @@ using System.Text;
 
 namespace NgocNhanShop.Business.Catelog.Dtos
 {
-    public class PageRequestBase : RequestBase
+    public class PageRequestBase
     {
         public int PageIndex { get; set; }
         public int PageSize { get; set; } = 10;

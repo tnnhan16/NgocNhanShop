@@ -6,16 +6,17 @@ using NgocNhanShop.Business.System.Dtos;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
-
+using AutoMapper;
+using System;
 
 namespace NgocNhanShop.AdminApp.Controllers
 {
-    [Authorize]
     public class UserController : BaseController
     {
         private readonly IUserApiClient _userApiClient;
 
         private readonly IConfiguration _configuration;
+
         public UserController(IUserApiClient userApiClient, IConfiguration configuration)
         {
             _userApiClient = userApiClient;
@@ -27,13 +28,12 @@ namespace NgocNhanShop.AdminApp.Controllers
             var sessions = HttpContext.Session.GetString("Token");
             var request = new UserPageRequest()
             {
-                BearerToken = sessions,
                 Keyword = keyword,
                 PageIndex = pageIndex,
                 PageSize = pageSize
             };
-            var users = await _userApiClient.GetUsersPagings(request);
-            return View(users);
+            var result = await _userApiClient.GetUsersPagings(request);
+            return View(result.ResultObj);
         }
 
         [HttpGet]
@@ -50,11 +50,37 @@ namespace NgocNhanShop.AdminApp.Controllers
                 return View();
             }
             var result = await _userApiClient.RegisterUser(request);
-            if (result)
+            if (result.IsSuccessed)
             {
                 return RedirectToAction("Index", "User");
             }
-            return View();
+            ModelState.AddModelError("", result.Message);
+            return View(request);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(Guid id)
+        {
+            var result = await _userApiClient.GetByUserId(id);
+            if (result.IsSuccessed)
+            {
+                return View(result.ResultObj);
+            }
+            return RedirectToAction("Error", "Home");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(UserUpdateRequest request)
+        {
+            if (!ModelState.IsValid)
+                return View();
+
+            var result = await _userApiClient.UpdateUser(request.Id, request);
+            if (result.IsSuccessed)
+                return RedirectToAction("Index");
+
+            ModelState.AddModelError("", result.Message);
+            return View(request);
         }
 
     }

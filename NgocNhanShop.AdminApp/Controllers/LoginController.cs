@@ -49,17 +49,17 @@ namespace NgocNhanShop.AdminApp.Controllers
             }
             var response = await _userApiClient.Login(request);
 
-            if (response.StatusCode != HttpStatusCode.OK)
+            if (!response.IsSuccessed)
             {
                 return View();
             }
-            var userPrincipal = this.ValidateToken(response.Token);
+            var userPrincipal = this.ValidateToken(response.ResultObj);
             var authProperties = new AuthenticationProperties
             {
                 ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(30),
                 IsPersistent = false,
             };
-            HttpContext.Session.SetString("Token", response.Token);
+            HttpContext.Session.SetString("Token", response.ResultObj);
             await HttpContext.SignInAsync(
                 CookieAuthenticationDefaults.AuthenticationScheme,
                 userPrincipal,

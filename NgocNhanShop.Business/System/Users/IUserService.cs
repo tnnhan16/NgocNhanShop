@@ -1,4 +1,5 @@
 ﻿using NgocNhanShop.Business.Catelog.Dtos;
+using NgocNhanShop.Business.Common.Dtos;
 using NgocNhanShop.Business.System.Dtos;
 using NgocNhanShop.Data.Entities;
 using System;
@@ -10,10 +11,12 @@ namespace NgocNhanShop.Business.System.Users
 {
     public interface IUserService
     {
-        Task<string> Login(UserLoginRequest request);
-        Task<bool> Register(UserRegisterRequest request);
+        Task<ApiResult<string>> Login(UserLoginRequest request);
+        Task<ApiResult<bool>> Register(UserRegisterRequest request);
+        Task<ApiResult<bool>> Update(Guid id, UserUpdateRequest request);
+        Task<ApiResult<PageResult<UserViewModel>>> GetUsersPaging(UserPageRequest request);
+        Task<ApiResult<UserUpdateRequest>>GetByUsername(string Username);
+        Task<ApiResult<UserUpdateRequest>> GetByUserId(Guid UserId);
 
-        Task<PageResult<UserViewModel>> GetUsersPaging(UserPageRequest request);
-        Task<AppUser>GetByUsername(string Username);
     }
 }
