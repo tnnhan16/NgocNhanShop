@@ -7,9 +7,9 @@ namespace NgocNhanShop.Business.System.Dtos
 {
     public class UserRegisterRequest
     {
-        [Display(Name = "Tên")]
-        public string LastName { get; set; }
         [Display(Name = "Họ")]
+        public string LastName { get; set; }
+        [Display(Name = "Tên")]
         public string FirstName { get; set; }
         [Display(Name ="Ngày sinh")]
         [DataType(DataType.Date)]

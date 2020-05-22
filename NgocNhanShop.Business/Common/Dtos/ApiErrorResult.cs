@@ -23,5 +23,12 @@ namespace NgocNhanShop.Business.Common.Dtos
             IsSuccessed = false;
             ValidationErrors = validationErrors;
         }
+
+        public ApiErrorResult(List<T> listErrors)
+        {
+            IsSuccessed = false;
+            ListError = listErrors;
+        }
+
     }
 }
