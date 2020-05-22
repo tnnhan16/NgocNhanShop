@@ -54,7 +54,10 @@ namespace NgocNhanShop.AdminApp.Controllers
             {
                 return RedirectToAction("Index", "User");
             }
-            ModelState.AddModelError("", result.Message);
+            foreach (var item in result.ListError)
+            {
+                ModelState.AddModelError(item.Key.ToString(), item.Value.ToString());
+            }
             return View(request);
         }
 
@@ -79,7 +82,10 @@ namespace NgocNhanShop.AdminApp.Controllers
             if (result.IsSuccessed)
                 return RedirectToAction("Index");
 
-            ModelState.AddModelError("", result.Message);
+            foreach (var item in result.ListError)
+            {
+                ModelState.AddModelError(item.Key.ToString(), item.Value.ToString());
+            }
             return View(request);
         }
 

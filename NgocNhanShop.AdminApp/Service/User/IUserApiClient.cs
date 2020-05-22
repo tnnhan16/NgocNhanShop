@@ -15,9 +15,9 @@ namespace NgocNhanShop.AdminApp.Service.User
 
         Task<ApiResult<PageResult<UserViewModel>>> GetUsersPagings(UserPageRequest request);
 
-        Task<ApiResult<bool>> RegisterUser(UserRegisterRequest request);
+        Task<ApiResult<Message>> RegisterUser(UserRegisterRequest request);
 
-        Task<ApiResult<bool>> UpdateUser(Guid id, UserUpdateRequest request);
+        Task<ApiResult<Message>> UpdateUser(Guid id, UserUpdateRequest request);
 
         Task<ApiResult<UserViewModel>> GetByUsername(string Username);
 

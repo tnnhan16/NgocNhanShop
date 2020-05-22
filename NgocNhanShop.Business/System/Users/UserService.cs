@@ -65,8 +65,25 @@ namespace NgocNhanShop.Business.System
             return new ApiSuccessResult<string>(new JwtSecurityTokenHandler().WriteToken(token));
         }
 
-        public async Task<ApiResult<bool>> Register(UserRegisterRequest request)
+        public async Task<ApiResult<Message>> Register(UserRegisterRequest request)
         {
+            var listMessage = new List<Message>();
+            var checkUserName = await _userManager.FindByNameAsync(request.UserName);
+            if (checkUserName != null)
+            {
+                listMessage.Add(new Message { Key= "UserName",Value= "Tài khoản này đã tồn tại" });
+                //return new ApiErrorResult<bool>("Tài khoản này đã tồn tại");
+            }
+            var checkEmail = await _userManager.FindByEmailAsync(request.Email);
+            if (checkEmail != null)
+            {
+                listMessage.Add(new Message { Key = "Email", Value = "Email này đã tồn tại" });
+                //return new ApiErrorResult<bool>("Email này đã tồn tại");
+            }
+            if (listMessage.Count > 0)
+            {
+                return new ApiErrorResult<Message>(listMessage);
+            }
             var user = _mapper.Map<AppUser>(request);
             if (user == null)
             {
@@ -75,9 +92,9 @@ namespace NgocNhanShop.Business.System
             var result = await _userManager.CreateAsync(user,request.Password);
             if (result.Succeeded)
             {
-                return new ApiSuccessResult<bool>();
+                return new ApiSuccessResult<Message>();
             }
-            return new ApiErrorResult<bool>("Đăng ký không thành công");
+            return new ApiErrorResult<Message>("Đăng ký không thành công");
         }
 
         public async Task<ApiResult<PageResult<UserViewModel>>> GetUsersPaging(UserPageRequest request)
@@ -112,21 +129,26 @@ namespace NgocNhanShop.Business.System
             };
             return new ApiSuccessResult<PageResult<UserViewModel>>(pagedResult);
         }
-        public async Task<ApiResult<bool>> Update(Guid id, UserUpdateRequest request)
+        public async Task<ApiResult<Message>> Update(Guid id, UserUpdateRequest request)
         {
+
+            var listMessage = new List<Message>();
             if (await _userManager.Users.AnyAsync(x => x.Email == request.Email && x.Id != id))
             {
-                return new ApiErrorResult<bool>("Emai đã tồn tại");
+                listMessage.Add(new Message { Key = "Email", Value = "Email này đã tồn tại" });
+            }
+            if (listMessage.Count > 0)
+            {
+                return new ApiErrorResult<Message>(listMessage);
             }
             var user = await _userManager.FindByIdAsync(id.ToString());
-            user = _mapper.Map<AppUser>(request);
-
+            _mapper.Map<UserUpdateRequest,AppUser>(request, user);
             var result = await _userManager.UpdateAsync(user);
             if (result.Succeeded)
             {
-                return new ApiSuccessResult<bool>();
+                return new ApiSuccessResult<Message>();
             }
-            return new ApiErrorResult<bool>("Cập nhật không thành công");
+            return new ApiErrorResult<Message>("Cập nhật không thành công");
         }
 
         public async Task<ApiResult<UserUpdateRequest>> GetByUsername(string Username)

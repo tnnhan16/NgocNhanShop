@@ -93,7 +93,7 @@ namespace NgocNhanShop.AdminApp.Service.User
             return users;
         }
 
-        public async Task<ApiResult<bool>> RegisterUser(UserRegisterRequest request)
+        public async Task<ApiResult<Message>> RegisterUser(UserRegisterRequest request)
         {
             var client = _httpClientFactory.CreateClient();
             client.BaseAddress = new Uri(_configuration["BaseAddress"]);
@@ -104,12 +104,12 @@ namespace NgocNhanShop.AdminApp.Service.User
             var response = await client.PostAsync($"/api/users", httpContent);
             var result = await response.Content.ReadAsStringAsync();
             if (response.IsSuccessStatusCode)
-                return JsonConvert.DeserializeObject<ApiSuccessResult<bool>>(result);
+                return JsonConvert.DeserializeObject<ApiSuccessResult<Message>>(result);
 
-            return JsonConvert.DeserializeObject<ApiErrorResult<bool>>(result);
+            return JsonConvert.DeserializeObject<ApiErrorResult<Message>>(result);
         }
 
-        public async Task<ApiResult<bool>> UpdateUser(Guid id, UserUpdateRequest request)
+        public async Task<ApiResult<Message>> UpdateUser(Guid id, UserUpdateRequest request)
         {
             var client = _httpClientFactory.CreateClient();
             client.BaseAddress = new Uri(_configuration["BaseAddress"]);
@@ -122,9 +122,9 @@ namespace NgocNhanShop.AdminApp.Service.User
             var response = await client.PutAsync($"/api/users/{id}", httpContent);
             var result = await response.Content.ReadAsStringAsync();
             if (response.IsSuccessStatusCode)
-                return JsonConvert.DeserializeObject<ApiSuccessResult<bool>>(result);
+                return JsonConvert.DeserializeObject<ApiSuccessResult<Message>>(result);
 
-            return JsonConvert.DeserializeObject<ApiErrorResult<bool>>(result);
+            return JsonConvert.DeserializeObject<ApiErrorResult<Message>>(result);
         }
     }
 }

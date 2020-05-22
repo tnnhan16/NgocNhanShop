@@ -7,20 +7,14 @@ using System.Text;
 
 namespace NgocNhanShop.Validator.Validator.Users
 {
-    public class UserRegisterRequestValidator : AbstractValidator<UserRegisterRequest>
+    public class UserUpdateRequestValidator : AbstractValidator<UserUpdateRequest>
     {
-        public UserRegisterRequestValidator()
+        public UserUpdateRequestValidator()
         {
             RuleFor(x => x.FirstName).NotEmpty().WithMessage(String.Format(MessageValidator_VN.isRequire, "Họ người dùng"));
 
             RuleFor(x => x.LastName).NotEmpty().WithMessage(String.Format(MessageValidator_VN.isRequire, "Tên người dùng"))
                 .MaximumLength(200).WithMessage(String.Format(MessageValidator_VN.maxLenght, "Tên người dùng", 200));
-
-            RuleFor(x => x.UserName).NotEmpty().WithMessage(String.Format(MessageValidator_VN.isRequire, "Tài khoản người dùng"))
-                .MaximumLength(255).WithMessage(String.Format(MessageValidator_VN.maxLenght, "Tài khoản người dùng", 255));
-
-            RuleFor(x => x.Password).NotEmpty().WithMessage(String.Format(MessageValidator_VN.isRequire, "Mật khẩu"))
-                 .MinimumLength(8).WithMessage(String.Format(MessageValidator_VN.minLenght, "Mật khẩu", 8));
 
             RuleFor(x => x.Email).NotEmpty().WithMessage(String.Format(MessageValidator_VN.isRequire, "Email"))
                 .EmailAddress().WithMessage(String.Format(MessageValidator_VN.email, "Email"));
@@ -32,16 +26,6 @@ namespace NgocNhanShop.Validator.Validator.Users
             RuleFor(x => x.BirthDay).NotEmpty().WithMessage(String.Format(MessageValidator_VN.isRequire, "Ngày sinh"))
                 .GreaterThan(DateTime.Now.AddYears(-100)).WithMessage(String.Format(MessageValidator_VN.minDate, "Ngày sinh", 100))
                 .LessThan(DateTime.Now).WithMessage(String.Format(MessageValidator_VN.maxDate, "Ngày sinh", DateTime.Now.ToString()));
-
-            RuleFor(x => x.ComfirmPassword).NotEmpty().WithMessage(String.Format(MessageValidator_VN.isRequire, "Mật khẩu xác nhận"));
-            RuleFor(x => x).Custom((request, context) =>
-            {
-                if (request.Password != request.ComfirmPassword)
-                {
-                    context.AddFailure("ComfirmPassword", String.Format(MessageValidator_VN.isComformPassword, "Mật khẩu xác nhận"));
-                }
-            });
-
         }
     }
 }

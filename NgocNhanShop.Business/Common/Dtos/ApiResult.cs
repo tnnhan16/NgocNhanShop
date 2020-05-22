@@ -11,5 +11,7 @@ namespace NgocNhanShop.Business.Common.Dtos
         public string Message { get; set; }
 
         public T ResultObj { get; set; }
+
+        public List<T> ListError { get; set; }
     }
 }

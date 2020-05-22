@@ -18,9 +18,9 @@ namespace NgocNhanShop.Validator.Message
 
         public const string phone = @"{0} không phải là định dạng số điện thoại.";
 
-        public const string maxYear = @"{0} không được lớn hơn {1} năm.";
+        public const string minDate = @"{0} không được lớn hơn {1} năm.";
 
-        public const string minDay = @"{0} không được nhỏ hơn {1} ngày hiện tại.";
+        public const string maxDate = @"{0} không được lớn hơn {1} ngày hiện tại.";
 
         public const string isComformPassword = @"{0} không nhập khớp với mật khẩu trên.";
 

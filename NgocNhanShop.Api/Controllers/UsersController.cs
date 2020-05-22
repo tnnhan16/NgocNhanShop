@@ -63,9 +63,9 @@ namespace NgocNhanShop.Api.Controllers
             var result = await _userService.Register(request);
             if (result.IsSuccessed)
             {
-                return BadRequest("Cannot register user");
+                return Ok(result);              
             }
-            return Ok();
+            return BadRequest(result);
         }
 
         [HttpGet("paging")]

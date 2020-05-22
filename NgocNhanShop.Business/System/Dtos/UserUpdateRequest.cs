@@ -9,9 +9,9 @@ namespace NgocNhanShop.Business.System.Dtos
     {
         public Guid Id { get; set; }
 
-        [Display(Name = "Tên")]
-        public string LastName { get; set; }
         [Display(Name = "Họ")]
+        public string LastName { get; set; }
+        [Display(Name = "Tên")]
         public string FirstName { get; set; }
         [Display(Name = "Ngày sinh")]
         [DataType(DataType.Date)]

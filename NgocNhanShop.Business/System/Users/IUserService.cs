@@ -12,8 +12,8 @@ namespace NgocNhanShop.Business.System.Users
     public interface IUserService
     {
         Task<ApiResult<string>> Login(UserLoginRequest request);
-        Task<ApiResult<bool>> Register(UserRegisterRequest request);
-        Task<ApiResult<bool>> Update(Guid id, UserUpdateRequest request);
+        Task<ApiResult<Message>> Register(UserRegisterRequest request);
+        Task<ApiResult<Message>> Update(Guid id, UserUpdateRequest request);
         Task<ApiResult<PageResult<UserViewModel>>> GetUsersPaging(UserPageRequest request);
         Task<ApiResult<UserUpdateRequest>>GetByUsername(string Username);
         Task<ApiResult<UserUpdateRequest>> GetByUserId(Guid UserId);
