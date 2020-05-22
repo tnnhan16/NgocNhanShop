@@ -1,7 +1,10 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using NgocNhanShop.Business.Catelog.Dtos;
+using NgocNhanShop.Business.Common.Dtos;
 using NgocNhanShop.Business.System.Dtos;
 using NgocNhanShop.Business.System.Users;
 using NgocNhanShop.Data.Entities;
@@ -9,6 +12,7 @@ using NgocNhanShop.Utilities.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,7 +33,7 @@ namespace NgocNhanShop.Business.System
             _mapper = mapper;
 
         }
-        public async Task<string> Login(UserLoginRequest request)
+        public async Task<ApiResult<string>> Login(UserLoginRequest request)
         {
             var user = await _userManager.FindByNameAsync(request.Username);
             if(user == null)
@@ -46,7 +50,8 @@ namespace NgocNhanShop.Business.System
             {
                 new Claim(ClaimTypes.Email,user.Email),
                 new Claim(ClaimTypes.GivenName,user.FirstName),
-                new Claim(ClaimTypes.Role,string.Join(";",roles))
+                new Claim(ClaimTypes.Role,string.Join(";",roles)),
+                new Claim(ClaimTypes.Name, user.LastName),
             };
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Tokens:Key"]));
 
@@ -57,10 +62,10 @@ namespace NgocNhanShop.Business.System
                 claim,
                 expires: DateTime.Now.AddHours(3),
                 signingCredentials: creds);
-            return new JwtSecurityTokenHandler().WriteToken(token);
+            return new ApiSuccessResult<string>(new JwtSecurityTokenHandler().WriteToken(token));
         }
 
-        public async Task<bool> Register(UserRegisterRequest request)
+        public async Task<ApiResult<bool>> Register(UserRegisterRequest request)
         {
             var user = _mapper.Map<AppUser>(request);
             if (user == null)
@@ -70,12 +75,82 @@ namespace NgocNhanShop.Business.System
             var result = await _userManager.CreateAsync(user,request.Password);
             if (result.Succeeded)
             {
-                return true;
+                return new ApiSuccessResult<bool>();
             }
-            else
+            return new ApiErrorResult<bool>("Đăng ký không thành công");
+        }
+
+        public async Task<ApiResult<PageResult<UserViewModel>>> GetUsersPaging(UserPageRequest request)
+        {
+            var query = _userManager.Users;
+            if (!string.IsNullOrEmpty(request.Keyword))
             {
-                return false;
+                query = query.Where(x => x.UserName.Contains(request.Keyword)
+                 || x.PhoneNumber.Contains(request.Keyword));
             }
+
+            int totalRow = await query.CountAsync();
+
+            var result = await query.Skip((request.PageIndex - 1) * request.PageSize)
+                .Take(request.PageSize).Select(x => new UserViewModel
+                { 
+                    Id = x.Id,
+                    FirstName = x.FirstName,
+                    LastName = x.LastName,
+                    UserName = x.UserName,
+                    Birdthay = x.BirthDay,
+                    Email = x.Email,
+                    PhoneNumber = x.PhoneNumber,          
+                }).ToListAsync();
+
+            //var users = _mapper.Map<List<UserViewModel>>(result);
+
+            var pagedResult = new PageResult<UserViewModel>()
+            {
+                Total = totalRow,
+                Items = result
+            };
+            return new ApiSuccessResult<PageResult<UserViewModel>>(pagedResult);
+        }
+        public async Task<ApiResult<bool>> Update(Guid id, UserUpdateRequest request)
+        {
+            if (await _userManager.Users.AnyAsync(x => x.Email == request.Email && x.Id != id))
+            {
+                return new ApiErrorResult<bool>("Emai đã tồn tại");
+            }
+            var user = await _userManager.FindByIdAsync(id.ToString());
+            user = _mapper.Map<AppUser>(request);
+
+            var result = await _userManager.UpdateAsync(user);
+            if (result.Succeeded)
+            {
+                return new ApiSuccessResult<bool>();
+            }
+            return new ApiErrorResult<bool>("Cập nhật không thành công");
+        }
+
+        public async Task<ApiResult<UserUpdateRequest>> GetByUsername(string Username)
+        {
+            var user = await _userManager.FindByNameAsync(Username);
+            if (user == null)
+            {
+                return new ApiErrorResult<UserUpdateRequest>($"Không tìm thấy người dùng có username: {Username}");
+            }
+            return new ApiSuccessResult<UserUpdateRequest>();
+        }
+
+        public async Task<ApiResult<UserUpdateRequest>> GetByUserId(Guid UserId)
+        {
+            var user = await _userManager.FindByIdAsync(UserId.ToString());
+
+            if (user == null)
+            {
+                return new ApiErrorResult<UserUpdateRequest>($"Không tìm thấy người dùng này");
+            }
+
+            var userDto = _mapper.Map<UserUpdateRequest>(user);
+
+            return new ApiSuccessResult<UserUpdateRequest>(userDto);
         }
     }
 }

@@ -20,14 +20,6 @@ namespace NgocNhanShop.Api.Controllers
         {
             _productService = productService;
         }
-        //// GET: api/Product
-        //[HttpGet]
-        //public async Task<IActionResult> GetAll()
-        //{
-        //    var product = await _productService.GetAll();
-
-        //    return Ok(product);
-        //}
 
         // GET: api/Product
         [HttpGet]

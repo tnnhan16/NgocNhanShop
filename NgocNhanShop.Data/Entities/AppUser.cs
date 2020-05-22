@@ -9,6 +9,6 @@ namespace NgocNhanShop.Data.Entities
     {
         public string LastName { get; set; }
         public string FirstName { get; set; }
-        public string BirthDay { get; set; }
+        public DateTime BirthDay { get; set; }
     }
 }

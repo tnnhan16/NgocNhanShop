@@ -12,7 +12,7 @@ namespace NgocNhanShop.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [AllowAnonymous]
+    [Authorize]
     public class UsersController : ControllerBase
     {
         private readonly IUserService _userService;
@@ -22,33 +22,71 @@ namespace NgocNhanShop.Api.Controllers
         }
 
         [HttpPost("login")]
+        [AllowAnonymous]
         public async Task<IActionResult> Login([FromBody]UserLoginRequest request)
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest();
+                return BadRequest(ModelState);
             }
-            var resultToken = await _userService.Login(request);
-            if (resultToken == null)
+            var resutl = await _userService.Login(request);
+            if (!resutl.IsSuccessed)
             {
                 return BadRequest("Cannot login with username or password");
             }
-            return Ok(new { token = resultToken });
+            return Ok(resutl);
         }
 
-        [HttpPost("register")]
+
+        [HttpGet("byid/{id}")]
+        public async Task<IActionResult> GetByUserId(Guid id)
+        {
+            var result = await _userService.GetByUserId(id);
+            return Ok(result);
+        }
+
+        [HttpGet("byname/{Username}")]
+        public async Task<IActionResult> GetByUsername(string Username)
+        {
+            var result = await _userService.GetByUsername(Username);
+            return Ok(result);
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Register([FromBody]UserRegisterRequest request)
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest();
+                return BadRequest(ModelState);
             }
             var result = await _userService.Register(request);
-            if (!result)
+            if (result.IsSuccessed)
             {
                 return BadRequest("Cannot register user");
             }
             return Ok();
+        }
+
+        [HttpGet("paging")]
+        public async Task<IActionResult> GetAllPaging([FromQuery]UserPageRequest request)
+        {
+            var products = await _userService.GetUsersPaging(request);
+            return Ok(products);
+        }
+
+        [HttpPut("{UserId}")]
+        public async Task<IActionResult> Update(Guid UserId, [FromBody]UserUpdateRequest request)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var result = await _userService.Update(UserId, request);
+            if (!result.IsSuccessed)
+            {
+                return BadRequest(result);
+            }
+            return Ok(result);
         }
     }
 }
