@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using NgocNhanShop.Business.Catelog.Dtos;
 using NgocNhanShop.Business.Common.Dtos;
 using NgocNhanShop.Business.System.Dtos;
 using NgocNhanShop.Business.System.Users;
@@ -38,12 +37,12 @@ namespace NgocNhanShop.Business.System
             var user = await _userManager.FindByNameAsync(request.Username);
             if(user == null)
             {
-                return null;
+                return new ApiErrorResult<string>("Tài khoản hay mật khẩu nhậu không chính xác");
             }
             var result = await _signInManager.PasswordSignInAsync(user, request.Password, true, true);
             if(!result.Succeeded)
             {
-                return null;
+                return new ApiErrorResult<string>("Tài khoản hay mật khẩu nhậu không chính xác");
             }
             var roles = await _userManager.GetRolesAsync(user);
             var claim = new Claim[]
@@ -108,24 +107,14 @@ namespace NgocNhanShop.Business.System
 
             int totalRow = await query.CountAsync();
 
-            var result = await query.Skip((request.PageIndex - 1) * request.PageSize)
-                .Take(request.PageSize).Select(x => new UserViewModel
-                { 
-                    Id = x.Id,
-                    FirstName = x.FirstName,
-                    LastName = x.LastName,
-                    UserName = x.UserName,
-                    Birdthay = x.BirthDay,
-                    Email = x.Email,
-                    PhoneNumber = x.PhoneNumber,          
-                }).ToListAsync();
+            var result = await query.Skip((request.PageIndex - 1) * request.PageSize).Take(request.PageSize).ToListAsync();
 
-            //var users = _mapper.Map<List<UserViewModel>>(result);
+            var users = _mapper.Map<List<UserViewModel>>(result);
 
             var pagedResult = new PageResult<UserViewModel>()
             {
                 Total = totalRow,
-                Items = result
+                Items = users
             };
             return new ApiSuccessResult<PageResult<UserViewModel>>(pagedResult);
         }
@@ -173,6 +162,34 @@ namespace NgocNhanShop.Business.System
             var userDto = _mapper.Map<UserUpdateRequest>(user);
 
             return new ApiSuccessResult<UserUpdateRequest>(userDto);
+        }
+
+        public async Task<ApiResult<UserViewModel>> GetUserDetail(Guid UserId)
+        {
+            var user = await _userManager.FindByIdAsync(UserId.ToString());
+
+            if (user == null)
+            {
+                return new ApiErrorResult<UserViewModel>($"Không tìm thấy người dùng này");
+            }
+
+            var userDto = _mapper.Map<UserViewModel>(user);
+
+            return new ApiSuccessResult<UserViewModel>(userDto);
+        }
+
+        public async Task<ApiResult<bool>> Delete(Guid id)
+        {
+            var user = await _userManager.FindByIdAsync(id.ToString());
+            if (user == null)
+            {
+                return new ApiErrorResult<bool>("User không tồn tại");
+            }
+            var reult = await _userManager.DeleteAsync(user);
+            if (reult.Succeeded)
+                return new ApiSuccessResult<bool>();
+
+            return new ApiErrorResult<bool>("Xóa không thành công");
         }
     }
 }

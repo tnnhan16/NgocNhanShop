@@ -45,12 +45,13 @@ namespace NgocNhanShop.AdminApp.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View(ModelState);
+                return View();
             }
             var response = await _userApiClient.Login(request);
 
             if (!response.IsSuccessed)
             {
+                ModelState.AddModelError("Password", response.Message);
                 return View();
             }
             var userPrincipal = this.ValidateToken(response.ResultObj);

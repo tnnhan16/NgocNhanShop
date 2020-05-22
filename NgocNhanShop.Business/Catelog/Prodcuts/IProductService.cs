@@ -1,4 +1,4 @@
-﻿using NgocNhanShop.Business.Catelog.Dtos;
+﻿using NgocNhanShop.Business.Common.Dtos;
 using NgocNhanShop.Business.Catelog.Prodcuts.Dtos;
 using NgocNhanShop.Data.Entities;
 using System;

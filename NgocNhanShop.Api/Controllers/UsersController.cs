@@ -32,7 +32,7 @@ namespace NgocNhanShop.Api.Controllers
             var resutl = await _userService.Login(request);
             if (!resutl.IsSuccessed)
             {
-                return BadRequest("Cannot login with username or password");
+                return BadRequest(resutl);
             }
             return Ok(resutl);
         }
@@ -42,6 +42,13 @@ namespace NgocNhanShop.Api.Controllers
         public async Task<IActionResult> GetByUserId(Guid id)
         {
             var result = await _userService.GetByUserId(id);
+            return Ok(result);
+        }
+
+        [HttpGet("detail/{id}")]
+        public async Task<IActionResult> GetUserDetail(Guid id)
+        {
+            var result = await _userService.GetUserDetail(id);
             return Ok(result);
         }
 
@@ -82,6 +89,17 @@ namespace NgocNhanShop.Api.Controllers
                 return BadRequest(ModelState);
 
             var result = await _userService.Update(UserId, request);
+            if (!result.IsSuccessed)
+            {
+                return BadRequest(result);
+            }
+            return Ok(result);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            var result = await _userService.Delete(id);
             if (!result.IsSuccessed)
             {
                 return BadRequest(result);

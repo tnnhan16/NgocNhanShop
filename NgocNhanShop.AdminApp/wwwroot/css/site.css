@@ -7,3 +7,14 @@
 #page-top .fa-home {
     font-size: 23px
 }
+table.table-ngoc-nhan-shop thead{
+    background-color: #27325a;
+    color: white;
+    text-align: center;
+}
+table.table-ngoc-nhan-shop {
+    background-color:white;
+}
+.fa-angle-double-right {
+    color: #425bcc;
+}

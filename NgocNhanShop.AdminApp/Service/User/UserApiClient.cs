@@ -2,7 +2,6 @@
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using NgocNhanShop.AdminApp.Service.Response;
-using NgocNhanShop.Business.Catelog.Dtos;
 using NgocNhanShop.Business.Common.Dtos;
 using NgocNhanShop.Business.System.Dtos;
 using NgocNhanShop.Data.Entities;
@@ -34,7 +33,7 @@ namespace NgocNhanShop.AdminApp.Service.User
             var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
 
             var client = _httpClientFactory.CreateClient();
-            client.BaseAddress = new Uri("https://localhost:5001");
+            client.BaseAddress = new Uri(_configuration["BaseAddress"]);
 
             var response = await client.PostAsync("/api/users/login", httpContent);
             if (response.IsSuccessStatusCode)
@@ -60,6 +59,22 @@ namespace NgocNhanShop.AdminApp.Service.User
                 return JsonConvert.DeserializeObject<ApiSuccessResult<UserUpdateRequest>>(body);
 
             return JsonConvert.DeserializeObject<ApiErrorResult<UserUpdateRequest>>(body);
+        }
+
+        public async Task<ApiResult<UserViewModel>> GetUserDetail(Guid id)
+        {
+            var client = _httpClientFactory.CreateClient();
+            client.BaseAddress = new Uri(_configuration["BaseAddress"]);
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _httpContextAccessor.HttpContext.Session.GetString("Token"));
+
+            var response = await client.GetAsync($"/api/users/detail/{id}");
+
+            var body = await response.Content.ReadAsStringAsync();
+
+            if (response.IsSuccessStatusCode)
+                return JsonConvert.DeserializeObject<ApiSuccessResult<UserViewModel>>(body);
+
+            return JsonConvert.DeserializeObject<ApiErrorResult<UserViewModel>>(body);
         }
 
         public async Task<ApiResult<UserViewModel>> GetByUsername(string Username)
@@ -126,5 +141,20 @@ namespace NgocNhanShop.AdminApp.Service.User
 
             return JsonConvert.DeserializeObject<ApiErrorResult<Message>>(result);
         }
+
+        public async Task<ApiResult<bool>> DeleteUser(Guid id)
+        {
+            var client = _httpClientFactory.CreateClient();
+            client.BaseAddress = new Uri(_configuration["BaseAddress"]);
+
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _httpContextAccessor.HttpContext.Session.GetString("Token"));
+            var response = await client.DeleteAsync($"/api/users/{id}");
+            var body = await response.Content.ReadAsStringAsync();
+            if (response.IsSuccessStatusCode)
+                return JsonConvert.DeserializeObject<ApiSuccessResult<bool>>(body);
+
+            return JsonConvert.DeserializeObject<ApiErrorResult<bool>>(body);
+        }
+
     }
 }
