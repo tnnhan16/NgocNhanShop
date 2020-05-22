@@ -89,5 +89,39 @@ namespace NgocNhanShop.AdminApp.Controllers
             return View(request);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            var result = await _userApiClient.GetUserDetail(id);
+            if (result.IsSuccessed)
+            {
+                return View(result.ResultObj);
+            }
+            return RedirectToAction("Error", "Home");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(UserViewModel request)
+        {
+            if (ModelState.IsValid)
+                return View();
+
+            var result = await _userApiClient.DeleteUser(request.Id);
+            if (result.IsSuccessed)
+                return RedirectToAction("Index");
+            return View(result.Message);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Detail(Guid id)
+        {
+            var result = await _userApiClient.GetUserDetail(id);
+            if (result.IsSuccessed)
+            {
+                return View(result.ResultObj);
+            }
+            return RedirectToAction("Error", "Home");
+        }
+
     }
 }

@@ -1,5 +1,4 @@
 ﻿using NgocNhanShop.AdminApp.Service.Response;
-using NgocNhanShop.Business.Catelog.Dtos;
 using NgocNhanShop.Business.Common.Dtos;
 using NgocNhanShop.Business.System.Dtos;
 using System;
@@ -18,9 +17,12 @@ namespace NgocNhanShop.AdminApp.Service.User
         Task<ApiResult<Message>> RegisterUser(UserRegisterRequest request);
 
         Task<ApiResult<Message>> UpdateUser(Guid id, UserUpdateRequest request);
+        Task<ApiResult<bool>> DeleteUser(Guid id);
 
         Task<ApiResult<UserViewModel>> GetByUsername(string Username);
 
         Task<ApiResult<UserUpdateRequest>> GetByUserId(Guid UserId);
+
+        Task<ApiResult<UserViewModel>> GetUserDetail(Guid UserId);
     }
 }
