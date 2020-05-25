@@ -1,9 +1,9 @@
-﻿using NgocNhanShop.Business.Common.Dtos;
+﻿using NgocNhanShop.ViewModel.Common.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace NgocNhanShop.Business.System.Dtos
+namespace NgocNhanShop.ViewModel.System.Dtos
 {
     public class UserPageRequest : PageRequestBase
     {

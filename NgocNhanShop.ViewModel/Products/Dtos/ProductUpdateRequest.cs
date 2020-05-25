@@ -1,9 +1,9 @@
-﻿using NgocNhanShop.Business.Catelog.Category.Dtos;
+﻿using NgocNhanShop.ViewModel.Catelog.Category.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace NgocNhanShop.Business.Catelog.Prodcuts.Dtos
+namespace NgocNhanShop.ViewModel.Catelog.Prodcuts.Dtos
 {
     public class ProductUpdateRequest
     {

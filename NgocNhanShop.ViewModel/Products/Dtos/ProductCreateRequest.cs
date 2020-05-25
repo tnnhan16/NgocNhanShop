@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace NgocNhanShop.Business.Catelog.Prodcuts.Dtos
+namespace NgocNhanShop.ViewModel.Catelog.Prodcuts.Dtos
 {
     public class ProductCreateRequest
     {

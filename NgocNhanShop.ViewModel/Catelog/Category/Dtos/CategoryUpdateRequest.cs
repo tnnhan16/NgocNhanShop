@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace NgocNhanShop.Business.Catelog.Category.Dtos
+namespace NgocNhanShop.ViewModel.Catelog.Category.Dtos
 {
     public class CategoryUpdateRequest
     {

@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using NgocNhanShop.Business.Catelog.Category.Dtos;
-using NgocNhanShop.Business.Common.Dtos;
+using NgocNhanShop.ViewModel.Catelog.Category.Dtos;
+using NgocNhanShop.ViewModel.Common.Dtos;
 using NgocNhanShop.Data.Entities;
 using NgocNhanShop.EF.Data;
 using NgocNhanShop.Utilities.Exceptions;

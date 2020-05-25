@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using NgocNhanShop.Business.Catelog.Prodcuts.Dtos;
+using NgocNhanShop.ViewModel.Catelog.Prodcuts.Dtos;
 using NgocNhanShop.Validator.Message;
 using System;
 using System.Collections.Generic;

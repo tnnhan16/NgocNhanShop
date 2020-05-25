@@ -14,6 +14,7 @@
   <ItemGroup>
     <ProjectReference Include="..\NgocNhanShop.Data\NgocNhanShop.Data.csproj" />
     <ProjectReference Include="..\NgocNhanShop.Utilities\NgocNhanShop.Utilities.csproj" />
+    <ProjectReference Include="..\NgocNhanShop.ViewModel\NgocNhanShop.ViewModel.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using NgocNhanShop.Business.Catelog.Category.Dtos;
-using NgocNhanShop.Business.Catelog.Prodcuts.Dtos;
-using NgocNhanShop.Business.System.Dtos;
+using NgocNhanShop.ViewModel.Catelog.Category.Dtos;
+using NgocNhanShop.ViewModel.Catelog.Prodcuts.Dtos;
+using NgocNhanShop.ViewModel.System.Dtos;
 using NgocNhanShop.Data.Entities;
 using System;
 using System.Collections.Generic;

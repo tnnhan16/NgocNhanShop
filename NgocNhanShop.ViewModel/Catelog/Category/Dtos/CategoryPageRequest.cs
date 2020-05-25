@@ -1,9 +1,9 @@
-﻿using NgocNhanShop.Business.Common.Dtos;
+﻿using NgocNhanShop.ViewModel.Common.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace NgocNhanShop.Business.Catelog.Category.Dtos
+namespace NgocNhanShop.ViewModel.Catelog.Category.Dtos
 {
     public class CategoryPageRequest: PageRequestBase
     {

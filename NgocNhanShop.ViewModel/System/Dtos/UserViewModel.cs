@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.ComponentModel.DataAnnotations;
 
-namespace NgocNhanShop.Business.System.Dtos
+namespace NgocNhanShop.ViewModel.System.Dtos
 {
     public class UserViewModel
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace NgocNhanShop.Business.System.Dtos
+namespace NgocNhanShop.ViewModel.System.Dtos
 {
     public class UserRegisterRequest
     {

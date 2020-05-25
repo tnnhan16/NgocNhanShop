@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NgocNhanShop.Business.Catelog.Prodcuts;
-using NgocNhanShop.Business.Catelog.Prodcuts.Dtos;
+using NgocNhanShop.ViewModel.Catelog.Prodcuts.Dtos;
 
 namespace NgocNhanShop.Api.Controllers
 {

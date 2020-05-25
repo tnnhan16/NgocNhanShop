@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using NgocNhanShop.Business.System.Dtos;
+using NgocNhanShop.ViewModel.System.Dtos;
 using NgocNhanShop.Validator.Message;
 using System;
 using System.Collections.Generic;

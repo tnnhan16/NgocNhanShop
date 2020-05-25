@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace NgocNhanShop.Business.Catelog.Category.Dtos
+namespace NgocNhanShop.ViewModel.Catelog.Category.Dtos
 {
-    public class CategoryViewModel
+    public class CategoryCreateRequest
     {
         public string Name { get; set; }
         public int? ParentId { get; set; }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace NgocNhanShop.Business.Common.Dtos
+namespace NgocNhanShop.ViewModel.Common.Dtos
 {
     public class ApiResult<T>
     {
