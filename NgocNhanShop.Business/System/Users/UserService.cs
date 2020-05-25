@@ -114,7 +114,9 @@ namespace NgocNhanShop.Business.System
             var pagedResult = new PageResult<UserViewModel>()
             {
                 Total = totalRow,
-                Items = users
+                Items = users,
+                PageIndex = request.PageIndex,
+                PageSize = request.PageSize
             };
             return new ApiSuccessResult<PageResult<UserViewModel>>(pagedResult);
         }
