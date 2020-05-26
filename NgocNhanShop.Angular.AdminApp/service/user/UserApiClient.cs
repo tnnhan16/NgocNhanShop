@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using NgocNhanShop.ViewModel.Common.Dtos;
@@ -13,9 +13,9 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using NgocNhanShop.Utilities.Constant;
-using NgocNhanShop.AdminApp.Routers;
+using NgocNhanShop.Angular.AdminApp.Routers;
 
-namespace NgocNhanShop.AdminApp.Service.User
+namespace NgocNhanShop.Angular.AdminApp.Service.User
 {
     public class UserApiClient : ApiClientBase, IUserApiClient
     {
