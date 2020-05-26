@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NgocNhanShop.Business.Catelog.Category;
-using NgocNhanShop.Business.Catelog.Category.Dtos;
+using NgocNhanShop.ViewModel.Catelog.Category.Dtos;
 
 namespace NgocNhanShop.Api.Controllers
 {
@@ -20,16 +20,7 @@ namespace NgocNhanShop.Api.Controllers
         {
             _categoryService = categoryService;
         }
-        //// GET: api/Category
-        //[HttpGet]
-        //public async Task<IActionResult> GetAll()
-        //{
-        //    var category = await _categoryService.GetAll();
 
-        //    return Ok(category);
-        //}
-
-        // GET: api/Category
         [HttpGet]
         public async Task<IActionResult> GetAllPaging([FromQuery] CategoryPageRequest request)
         {

@@ -1,6 +1,5 @@
-﻿using NgocNhanShop.AdminApp.Service.Response;
-using NgocNhanShop.Business.Common.Dtos;
-using NgocNhanShop.Business.System.Dtos;
+﻿using NgocNhanShop.ViewModel.Common.Dtos;
+using NgocNhanShop.ViewModel.System.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;

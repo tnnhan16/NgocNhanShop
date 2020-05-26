@@ -1,4 +1,4 @@
-﻿@model NgocNhanShop.Business.System.Dtos.UserViewModel
+﻿@model NgocNhanShop.ViewModel.System.Dtos.UserViewModel
 @{
     ViewData["Title"] = "Xóa người dùng";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -31,7 +31,7 @@
                         @Html.DisplayNameFor(model => model.LastName)
                     </dt>
                     <dd class="col-sm-10">
-                        @Html.DisplayFor(model => model.FirstName) @Html.DisplayFor(model => model.LastName)
+                         @Model.FirstName @Model.LastName
                     </dd>
                 </dl>
                 <dl class="row">
@@ -39,7 +39,7 @@
                         @Html.DisplayNameFor(model => model.BirthDay)
                     </dt>
                     <dd class="col-sm-10">
-                        @Html.DisplayFor(model => model.BirthDay)
+                        @Model.BirthDay
                     </dd>
                 </dl>
                 <dl class="row">
@@ -47,7 +47,7 @@
                         @Html.DisplayNameFor(model => model.Email)
                     </dt>
                     <dd class="col-sm-10">
-                        @Html.DisplayFor(model => model.Email)
+                        @Model.Email
                     </dd>
                 </dl>
                 <dl class="row">
@@ -55,7 +55,7 @@
                         @Html.DisplayNameFor(model => model.UserName)
                     </dt>
                     <dd class="col-sm-10">
-                        @Html.DisplayFor(model => model.UserName)
+                        @Model.UserName
                     </dd>
                 </dl>
                 <dl class="row">
@@ -63,7 +63,7 @@
                         @Html.DisplayNameFor(model => model.PhoneNumber)
                     </dt>
                     <dd class="col-sm-10">
-                        @Html.DisplayFor(model => model.PhoneNumber)
+                        @Model.PhoneNumber
                     </dd>
                 </dl>
                 <form asp-action="Delete">

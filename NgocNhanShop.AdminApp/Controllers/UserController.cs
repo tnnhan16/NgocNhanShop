@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Mvc;
 using NgocNhanShop.AdminApp.Service.User;
-using NgocNhanShop.Business.System.Dtos;
+using NgocNhanShop.ViewModel.System.Dtos;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -23,7 +23,7 @@ namespace NgocNhanShop.AdminApp.Controllers
             _configuration = configuration;
         }
 
-        public async Task<IActionResult> Index(string keyword, int pageIndex = 1, int pageSize = 1)
+        public async Task<IActionResult> Index(string keyword, int pageIndex = 1, int pageSize = 2)
         {
             var sessions = HttpContext.Session.GetString("Token");
             var request = new UserPageRequest()
@@ -117,13 +117,14 @@ namespace NgocNhanShop.AdminApp.Controllers
             return RedirectToAction("Error", "Home");
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Delete(UserViewModel request)
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
                 return View();
 
-            var result = await _userApiClient.DeleteUser(request.Id);
+            var result = await _userApiClient.DeleteUser(id);
             if (result.IsSuccessed)
             {
                 TempData["Success"] = "Xóa người dùng thành công";

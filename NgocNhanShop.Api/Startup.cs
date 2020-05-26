@@ -21,7 +21,7 @@ using NgocNhanShop.Business.AutoMapper;
 using NgocNhanShop.Business.Catelog.Category;
 using NgocNhanShop.Business.Catelog.Prodcuts;
 using NgocNhanShop.Business.System;
-using NgocNhanShop.Business.System.Dtos;
+using NgocNhanShop.ViewModel.System.Dtos;
 using NgocNhanShop.Business.System.Users;
 using NgocNhanShop.Data.Entities;
 using NgocNhanShop.EF.Data;

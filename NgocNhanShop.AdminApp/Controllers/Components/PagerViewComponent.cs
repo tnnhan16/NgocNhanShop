@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using NgocNhanShop.Business.Common.Dtos;
+using NgocNhanShop.ViewModel.Common.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;

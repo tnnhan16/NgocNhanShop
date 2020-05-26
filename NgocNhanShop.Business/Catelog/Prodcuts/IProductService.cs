@@ -1,5 +1,5 @@
-﻿using NgocNhanShop.Business.Common.Dtos;
-using NgocNhanShop.Business.Catelog.Prodcuts.Dtos;
+﻿using NgocNhanShop.ViewModel.Common.Dtos;
+using NgocNhanShop.ViewModel.Catelog.Prodcuts.Dtos;
 using NgocNhanShop.Data.Entities;
 using System;
 using System.Collections.Generic;
