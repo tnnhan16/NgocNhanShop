@@ -2,32 +2,33 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { RouterModule } from '@angular/router';
-
 import { AppComponent } from './app.component';
-import { NavMenuComponent } from './nav-menu/nav-menu.component';
-import { HomeComponent } from './home/home.component';
-import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
-import { LoginFormComponent } from './user/login-form/login-form.component';
-import { RegisterUserFormComponent } from './user/register-user-form/register-user-form.component';
-import { AlertComponent } from './alert/alert.component';
+import { AlertComponent } from './shared/components/alert/alert.component';
 import { JwtInterceptor } from './shared/helpers/jwt.interceptor';
 import { ErrorInterceptor } from './shared/helpers/error.interceptor';
-import { fakeBackendProvider } from './shared/helpers/fake-backend';
+// import { fakeBackendProvider } from './shared/helpers/fake-backend';
 import { AppRoutingModule } from './app.routing';
+import { SidebarModule } from './shared/modules/layouts/sidebar/sidebar.module';
+import { NavbarModule } from './shared/modules/layouts/navbar/navbar.module';
+import { FooterModule } from './shared/modules/layouts/footer/footer.module';
+import { AdminLayoutComponent } from './shared/modules/layouts/admin-layout/admin-layout.component';
+import { AdminLayoutModule } from './shared/modules/layouts/admin-layout/admin-layout.module';
+import { LoginFormComponent } from './modules/user/login/login-form.component';
+import { RegisterUserFormComponent } from './modules/user/register/register-user-form.component';
+import { UserComponent } from './modules/user/user.component';
+import { UserModule } from './modules/user/user.module';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
     AppComponent,
-    
-    NavMenuComponent,
-    HomeComponent,
-    CounterComponent,
     FetchDataComponent,
     LoginFormComponent,
     RegisterUserFormComponent,
-    AlertComponent
+    AlertComponent,
+    AdminLayoutComponent,
+    UserComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -36,12 +37,18 @@ import { AppRoutingModule } from './app.routing';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    SidebarModule,
+    NavbarModule,
+    FooterModule,
+    AdminLayoutModule,
+    UserModule,
   ],
   providers: [
+    DatePipe,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     // provider used to create fake backend
-    fakeBackendProvider
+    // fakeBackendProvider
   ],
   bootstrap: [AppComponent]
 })
