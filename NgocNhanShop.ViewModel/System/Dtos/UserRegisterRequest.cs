@@ -19,7 +19,7 @@ namespace NgocNhanShop.ViewModel.System.Dtos
         [Display(Name = "Mật khẩu")]
         public string Password { get; set; }
         [Display(Name = "Mật khẩu xác nhận")]
-        public string ComfirmPassword { get; set; }
+        public string ConfirmPassword { get; set; }
         public string Email { get; set; }
         [Display(Name = "Số điện thoại")]
         public string PhoneNumber { get; set; }
