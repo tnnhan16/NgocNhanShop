@@ -6,12 +6,12 @@
         <img src="assets/img/angular2-logo.png">
       </div>
     </a>
-    <a href="https://www.creative-tim.com" class="simple-text logo-normal">
-      Creative Tim
+    <a routerLink="/admin" class="simple-text logo-normal">
+      Trang chủ
     </a>
   </div>
     <ul class="nav">
-        <li *ngFor="let menuItem of menuItems" routerLinkActive="active" class="{{menuItem.class}}">
+        <li *ngFor="let menuItem of menuItems" routerLinkActive="active" (click)="select(menuItem)" [ngClass]="{active: isActive(menuItem)}">
             <a [routerLink]="[menuItem.path]">
                 <i class="nc-icon {{menuItem.icon}}"></i>
                 <p>{{menuItem.title}}</p>
