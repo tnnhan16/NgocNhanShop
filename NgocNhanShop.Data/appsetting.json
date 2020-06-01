@@ -1,0 +1,5 @@
+{
+  "ConnectionStrings": {
+    "NgocNhanShopDatabase": "Server=.;Database=NgocNhanShop;Trusted_Connection=True;"
+  }
+}

@@ -1,0 +1,77 @@
+﻿@model NgocNhanShop.ViewModel.System.Dtos.UserViewModel
+@{
+    ViewData["Title"] = "Xóa người dùng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <h3 class="mt-4"><i class="fas fa-angle-double-right"></i> Xóa người dùng</h3>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+        <li class="breadcrumb-item active">Xóa user</li>
+    </ol>
+    <div class="card mb-4">
+        <div class="card-header">
+            <a class="btn btn-success" asp-action="Index" asp-controller="User"><i class="fas fa-list-ul"></i> Về danh sách</a>
+        </div>
+
+        <div class="card-body">
+            <div id="divMessage" class="col-md-12">
+                @if (ViewBag.Message != null)
+                {
+                    <div class="alert alert-danger" role="alert">
+                        @ViewBag.Message
+                    </div>
+                }
+
+            </div>
+            <div class="col-md-12">
+                <dl class="row">
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.LastName)
+                    </dt>
+                    <dd class="col-sm-10">
+                         @Model.FirstName @Model.LastName
+                    </dd>
+                </dl>
+                <dl class="row">
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.BirthDay)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Model.BirthDay
+                    </dd>
+                </dl>
+                <dl class="row">
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.Email)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Model.Email
+                    </dd>
+                </dl>
+                <dl class="row">
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.UserName)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Model.UserName
+                    </dd>
+                </dl>
+                <dl class="row">
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.PhoneNumber)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Model.PhoneNumber
+                    </dd>
+                </dl>
+                <form asp-action="Delete">
+                    <input asp-for="Id" type="hidden" />
+                    <button type="submit" class="btn btn-danger"><i class="fas fa-save"></i> Xóa</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

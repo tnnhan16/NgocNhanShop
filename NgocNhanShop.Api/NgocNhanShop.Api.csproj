@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation.AspNetCore" Version="8.6.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.2.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.2" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.4.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NgocNhanShop.Business\NgocNhanShop.Business.csproj" />
+    <ProjectReference Include="..\NgocNhanShop.Data\NgocNhanShop.Data.csproj" />
+    <ProjectReference Include="..\NgocNhanShop.Utilities\NgocNhanShop.Utilities.csproj" />
+    <ProjectReference Include="..\NgocNhanShop.Validator\NgocNhanShop.Validator.csproj" />
+  </ItemGroup>
+
+</Project>
