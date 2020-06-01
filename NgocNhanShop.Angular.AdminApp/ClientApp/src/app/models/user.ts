@@ -1,7 +1,7 @@
 import { DatePipe } from "@angular/common";
 
 export interface IUser {
-    id: number;
+    id: string;
     userName: string;
     password: string;
     confirmPassword:string;
@@ -13,7 +13,7 @@ export interface IUser {
 }
 
 export class User implements IUser {
-    id: number;
+    id: string;
     userName: string;
     password: string;
     confirmPassword:string;

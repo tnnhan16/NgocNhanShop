@@ -1,0 +1,98 @@
+<div class="row">
+    <div class="col-md-8">
+      <div class="card card-user">
+        <div class="card-header">
+          <h5 class="card-title">Cập nhật người dùng</h5>
+        </div>
+        <div class="card-body">
+          <form novalidate="" *ngIf="form" [formGroup]="form" (ngSubmit)="onSubmit()" class="ng-untouched ng-pristine ng-valid">
+            <div class="row">
+              <div class="col-md-5 pr-1">
+                <div class="form-group">
+                  <label for="firstName">First Name</label>
+                  <input type="text" formControlName="firstName" class="form-control"
+                         [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }"/>
+                  <div *ngIf="(f.firstName.invalid && (submitted || f.firstName.dirty || f.firstName.touched))">
+                    <small *ngIf="f.firstName.errors?.required" class="text-danger">First Name is required</small>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-7 pl-1">
+                <div class="form-group">
+                  <label for="lastName">Last Name</label>
+                  <input type="text" formControlName="lastName" class="form-control"
+                         [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }"/>
+                  <div *ngIf="(f.lastName.invalid && (submitted || f.lastName.dirty || f.lastName.touched))">
+                    <small *ngIf="f.lastName.errors?.required" class="text-danger">Last Name is required</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 pr-1">
+                <div class="form-group">
+                  <label for="birthDay">Birthday</label>
+                  <input type="date" formControlName="birthDay" class="form-control"
+                         [ngClass]="{ 'is-invalid': submitted && f.birthDay.errors }"/>
+                  <div *ngIf="(f.birthDay.invalid && (submitted || f.birthDay.dirty || f.birthDay.touched))">
+                    <small *ngIf="f.birthDay.errors?.required" class="text-danger">Birthday is required</small>
+                    <small *ngIf="f.birthDay.errors?.pattern" class="text-danger">Please provide a valid date</small>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 pl-1">
+                <div class="form-group">
+                  <label for="email">Email</label>
+                  <input type="email" formControlName="email" class="form-control"
+                         [ngClass]="{ 'is-invalid': submitted && f.email.errors }"/>
+                  <div *ngIf="(f.email.invalid && (submitted || f.email.dirty || f.email.touched))">
+                    <small *ngIf="f.email.errors?.required" class="text-danger">
+                      Primary email is
+                      required
+                    </small>
+                    <small *ngIf="f.email.errors?.pattern" class="text-danger">
+                      Please provide a valid
+                      email address
+                    </small>
+                  </div>
+                  <div *ngIf="messageError?.Email">
+                    <small *ngIf="messageError?.Email" class="text-danger">{{messageError.Email}}</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 pr-1">
+                <div class="form-group">
+                  <label for="phoneNumber">Phone</label>
+                  <input type="text" formControlName="phoneNumber" class="form-control"
+                         [ngClass]="{ 'is-invalid': submitted && f.phoneNumber.errors }" [(ngModel)]="user.phoneNumber"/>
+                  <div *ngIf="(f.phoneNumber.invalid && (submitted || f.phoneNumber.dirty || f.phoneNumber.touched))">
+                    <small *ngIf="f.phoneNumber.errors?.required" class="text-danger">
+                      Primary phone is
+                      required
+                    </small>
+                    <small *ngIf="f.phoneNumber.errors?.pattern" class="text-danger">
+                      Please provide a
+                      valid phone number
+                    </small>
+                    <small *ngIf="f.phoneNumber.errors?.maxlength || f.phoneNumber.errors?.minlength"
+                           class="text-danger">Độ dài trong khoản 3 đến 15 chữ số</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="update ml-auto mr-auto">
+                <button [disabled]="loading" class="btn btn-primary btn-round">
+                  <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                  Lưu cập nhật
+                </button>
+                <a routerLink="/admin/users" class="btn btn-cance btn-round btn-cance">Cancel</a>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+</div>

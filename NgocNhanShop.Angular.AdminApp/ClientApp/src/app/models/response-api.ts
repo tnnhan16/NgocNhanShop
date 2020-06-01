@@ -1,9 +1,9 @@
 import { PagingResponseApi } from "./paging-response-api"
-import { ResponseError } from "./response-error";
+import { IResponseError } from "./response-error";
 
 export interface ResponseApi <T>{
     isSuccessed: boolean
-    listError?: ResponseError[]
+    listError?: IResponseError[]
     message?: string
-    resultObj:PagingResponseApi<T>
+    resultObj:T
 }

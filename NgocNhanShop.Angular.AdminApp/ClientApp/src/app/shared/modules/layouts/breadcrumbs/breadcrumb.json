@@ -1,0 +1,26 @@
+{
+    "/admin": {
+        "path":"/admin",
+        "lable":"Trang chủ"
+    },
+    "/admin/users": {
+        "path": "/admin/users",
+        "lable":"Danh sách người dùng"
+    },
+    "/admin/users/add": {
+        "path": "/admin/users/add",
+        "lable":"Thêm người dùng"
+    },
+    "/admin/users/edit": {
+        "path": "/admin/users/edit",
+        "lable":"Cập nhật người dùng"
+    },
+    "/admin/users/detail": {
+        "path": "/admin/users/detail",
+        "lable":"Chi tiết người dùng"
+    },
+    "/admin/users/delete": {
+        "path": "/admin/users/delete",
+        "lable":"Xóa người dùng"
+    }
+}

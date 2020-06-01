@@ -14,12 +14,13 @@ import { NavbarModule } from './shared/modules/layouts/navbar/navbar.module';
 import { FooterModule } from './shared/modules/layouts/footer/footer.module';
 import { AdminLayoutComponent } from './shared/modules/layouts/admin-layout/admin-layout.component';
 import { AdminLayoutModule } from './shared/modules/layouts/admin-layout/admin-layout.module';
-import { LoginFormComponent } from './modules/user/login/login-form.component';
-import { RegisterUserFormComponent } from './modules/user/register/register-user-form.component';
+import { LoginFormComponent } from './modules/user/system/login/login-form.component';
+import { RegisterUserFormComponent } from './modules/user/system/register/register-user-form.component';
 import { UserComponent } from './modules/user/user.component';
 import { UserModule } from './modules/user/user.module';
 import { DatePipe } from '@angular/common';
-import { AddUserComponent } from './modules/add/add-user.component';
+import { AddUserComponent } from './modules/user/add/add-user.component';
+import { EditUserComponent } from './modules/user/edit/edit-user.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { AddUserComponent } from './modules/add/add-user.component';
     AdminLayoutComponent,
     UserComponent,
     AddUserComponent,
+    EditUserComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
