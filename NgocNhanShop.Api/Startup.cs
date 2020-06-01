@@ -159,6 +159,7 @@ namespace NgocNhanShop.Api
             {
                 options.WithOrigins("https://localhost:5000").AllowAnyMethod().AllowAnyHeader();
                 options.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader();
+                options.WithOrigins("https://localhost:44315").AllowAnyMethod().AllowAnyHeader();
             });
             app.UseHttpsRedirection();
 

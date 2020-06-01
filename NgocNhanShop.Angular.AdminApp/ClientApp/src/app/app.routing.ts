@@ -7,12 +7,21 @@ import { LoginFormComponent } from './modules/user/login/login-form.component';
 import { RegisterUserFormComponent } from './modules/user/register/register-user-form.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { UserComponent } from './modules/user/user.component';
+import { AddUserComponent } from './modules/add/add-user.component';
 
 const routes: Routes = [
     { path: 'admin', component: AdminLayoutComponent, canActivate: [AuthGuard],
     children:[
         { path: '', component: DashboardComponent},
-        { path: 'users', component: UserComponent, canActivate: [AuthGuard]},
+        { path: 'users', component: UserComponent},
+        { path: 'users/add', component: AddUserComponent},
+        // children:[
+          
+            // { path: 'edit/:id', component: AddUserComponent},
+            // { path: 'detail/:id', component: AddUserComponent},
+            // { path: 'delete/:id', component: AddUserComponent}
+        // ]
+    // },
 
     ]
 

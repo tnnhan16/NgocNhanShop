@@ -19,6 +19,7 @@ import { RegisterUserFormComponent } from './modules/user/register/register-user
 import { UserComponent } from './modules/user/user.component';
 import { UserModule } from './modules/user/user.module';
 import { DatePipe } from '@angular/common';
+import { AddUserComponent } from './modules/add/add-user.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { DatePipe } from '@angular/common';
     AlertComponent,
     AdminLayoutComponent,
     UserComponent,
+    AddUserComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
