@@ -1,0 +1,11 @@
+a.link:hover{
+    color: mediumblue !important;
+}
+a.text-breadcrumb{
+    font-size: 20px;
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+    line-height: 1.625rem;
+    text-decoration: none;
+    background-color: transparent;
+}

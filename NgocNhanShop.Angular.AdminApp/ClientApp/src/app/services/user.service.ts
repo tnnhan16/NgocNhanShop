@@ -4,7 +4,7 @@ import { environment } from 'src/environments/environment';
 import { User } from '../models/user';
 import { map, catchError } from 'rxjs/operators';
 import { ResponseApi } from '../models/response-api';
-import { ResponseError } from '../models/response-error';
+import { PagingResponseApi } from '../models/paging-response-api';
 
 
 @Injectable({ providedIn: 'root' })
@@ -12,7 +12,7 @@ export class UserService {
     constructor(private http: HttpClient) { }
 
     getAll() {
-        return this.http.get<ResponseApi<User[]>>(environment.ApiUrlBase + '/api/users/paging').pipe(
+        return this.http.get<ResponseApi<PagingResponseApi<User[]>>>(environment.ApiUrlBase + '/api/users/paging').pipe(
             map(res=>{
                 const users: User[] = [];
                 res.resultObj.items.forEach(item => {
@@ -23,24 +23,33 @@ export class UserService {
             })
         );
     }
-
-    register(user: User) {
-        return this.http.post<ResponseApi<boolean>>(environment.ApiUrlBase + '/api/users', user).pipe(
-          map(res => {
-            const listError: ResponseError[] = [];
-            res.listError.forEach(item => {
-              listError.push(new ResponseError(item));
-            });
-            res.listError = listError;
-            return res
-          }),
-          catchError((err, caught) => {
-            return caught;
-          })
+    getById(idUser : string) {
+        return this.http.get<ResponseApi<User>>(environment.ApiUrlBase + '/api/users/byid/'+ idUser).pipe(
+            map(res=>{
+                res.resultObj = new User( res.resultObj);
+                return res
+            })
         );
     }
 
-    delete(id: number) {
-        return this.http.delete(environment.ApiUrlBase + '/users/${id}');
+    getDetail(idUser : string) {
+        return this.http.get<ResponseApi<User>>(environment.ApiUrlBase + '/api/users/detail/'+ idUser).pipe(
+            map(res=>{
+                res.resultObj = new User( res.resultObj);
+                return res
+            })
+        );
+    }
+
+    register(user: User) {
+        return this.http.post<ResponseApi<boolean>>(environment.ApiUrlBase + '/api/users', user);
+    }
+
+    edit(idUser : string, user: User) {
+        return this.http.put<ResponseApi<boolean>>(environment.ApiUrlBase + '/api/users/'+ idUser, user);
+    }
+
+    delete(idUser: string) {
+        return this.http.delete(environment.ApiUrlBase + '/api/users/'+ idUser);
     }
 }

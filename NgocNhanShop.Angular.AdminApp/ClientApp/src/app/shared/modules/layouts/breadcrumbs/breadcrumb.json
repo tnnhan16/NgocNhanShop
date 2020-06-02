@@ -1,0 +1,32 @@
+{
+    "/admin": {
+        "path":"/admin",
+        "lable":"Trang chủ",
+        "icon":"fa fa-home"
+    },
+    "/admin/users": {
+        "path": "/admin/users",
+        "lable":"Danh sách người dùng",
+        "icon":"fa fa-list-alt"
+    },
+    "/admin/users/add": {
+        "path": "/admin/users/add",
+        "lable":"Thêm người dùng",
+        "icon":"fa fa-list-alt"
+    },
+    "/admin/users/edit": {
+        "path": "/admin/users/edit",
+        "lable":"Cập nhật người dùng",
+        "icon":"fa fa-list-alt"
+    },
+    "/admin/users/detail": {
+        "path": "/admin/users/detail",
+        "lable":"Chi tiết người dùng",
+        "icon":"fa fa-list-alt"
+    },
+    "/admin/users/delete": {
+        "path": "/admin/users/delete",
+        "lable":"Xóa người dùng",
+        "icon":"fa fa-list-alt"
+    }
+}
