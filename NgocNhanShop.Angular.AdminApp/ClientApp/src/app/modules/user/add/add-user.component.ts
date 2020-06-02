@@ -1,30 +1,27 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { first } from 'rxjs/operators';
-import { AuthenticationService } from 'src/app/shared/services/authentication.service';
-import { AlertService } from 'src/app/shared/services/alert.service';
 import { ConfirmedValidator } from 'src/app/shared/helpers/confirmed.validator';
 import { UserService } from 'src/app/services/user.service';
+import { ResponseApi } from 'src/app/models/response-api';
+import { MessageError } from 'src/app/models/message-error';
+import { HttpErrorResponse } from '@angular/common/http';
+import { finalize } from 'rxjs/operators';
+import { ToastrService } from 'ngx-toastr';
 
-@Component({ templateUrl: 'register-user-form.component.html' })
-export class RegisterUserFormComponent implements OnInit {
+@Component({ templateUrl: 'add-user.component.html' })
+export class AddUserComponent implements OnInit {
   registerForm: FormGroup;
   loading = false;
   submitted = false;
+  messageError: MessageError = {};
 
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private authenticationService: AuthenticationService,
     private userService: UserService,
-    private alertService: AlertService
-  ) {
-    // redirect to home if already logged in
-    if (this.authenticationService.currentUserValue) {
-      this.router.navigate(['/']);
-    }
-  }
+    private toastr: ToastrService
+  ) {}
 
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
@@ -47,26 +44,33 @@ export class RegisterUserFormComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-
-    // reset alerts on submit
-    this.alertService.clear();
-
     // stop here if form is invalid
     if (this.registerForm.invalid) {
       return;
     }
-
     this.loading = true;
     this.userService.register(this.registerForm.value)
-      .pipe(first())
+      .pipe
+      (finalize(() => {
+        this.loading = false;
+      }))
       .subscribe(
         data => {
-          this.alertService.success('Registration successful', true);
-          this.router.navigate(['/login']);
+          this.router.navigate(['/admin/users']);
+          this.toastr.success('Đăng ký người dùng thành công!', 'Thông báo');
         },
-        error => {
-          this.alertService.error(error);
-          this.loading = false;
-        });
+        error=> {
+          if (error instanceof HttpErrorResponse) {
+            let result:ResponseApi<boolean> = error.error;
+            result.listError.forEach(element => {
+              if(element.key != null && element.value != null){
+                var key = element.key;
+                this.messageError[key] = element.value;
+              }
+            });
+          }
+          this.toastr.warning('Thông tin nhập chưa hợp lệ!', 'Thông báo');
+        }
+      );
   }
 }

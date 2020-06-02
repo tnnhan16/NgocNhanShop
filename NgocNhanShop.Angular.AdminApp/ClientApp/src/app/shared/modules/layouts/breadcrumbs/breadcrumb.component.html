@@ -1,0 +1,16 @@
+<ng-container *ngFor="let item of listBreadcrumbs;  let i = index; let first = first; let last = last">
+  <a *ngIf="first && last" class="text-breadcrumb" href="javascript:void(0)">
+    <i class="{{ item.icon }}" aria-hidden="true"></i> {{item.lable}}
+  </a>
+  <a *ngIf="first && !last" class="text-breadcrumb link" [routerLink]="[item.path]" >
+    <i class="{{ item.icon }}" aria-hidden="true"></i> {{item.lable}} 
+  </a>
+  <a *ngIf="last && !first" class="text-breadcrumb" href="javascript:void(0)">
+    <i class="fa fa-angle-right" aria-hidden="true"></i>  
+    <i class="{{ item.icon }}" aria-hidden="true"></i>  {{item.lable}}
+  </a>
+  <a *ngIf="!first && !last" class="text-breadcrumb link" [routerLink]="[item.path]"> 
+    <i class="fa fa-angle-right" aria-hidden="true"></i>  
+    <i class="{{ item.icon }}" aria-hidden="true"></i> {{item.lable}}  
+  </a>
+</ng-container>

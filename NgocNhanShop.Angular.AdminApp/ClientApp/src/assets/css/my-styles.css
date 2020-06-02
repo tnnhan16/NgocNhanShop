@@ -1,3 +1,25 @@
-.invalid-feedback{
-    display: block !important;
+table.table-custom {
+    background-color: white;
+}
+table.table-custom thead {
+    background-color: #ef8157;
+    color: white;
+    text-align: center;
+}
+table.table-custom thead th,table.table-custom tbody td{
+    border: 0.5px solid #212529;
+    border-right: 1px solid #999 !important;
+    border-left: 1px solid #9a9a9a !important;
+}
+.link-action a{
+    color: #ef8157;
+}
+.link-action a:hover{
+    color:#00edf3;
+}
+
+button.btn-custom, a.btn-custom, .page-item.active .page-link {
+    background-color: #ef8157 !important;
+    border-color: #ef8157 !important;
+
 }

@@ -1,8 +1,4 @@
-export class ResponseError {
+export interface IResponseError {
   key: string
   value: string
-  constructor(data: ResponseError) {
-    this.key = data.key;
-    this.value = data.value;
-  }
 }
