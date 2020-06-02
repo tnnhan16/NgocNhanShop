@@ -23,8 +23,17 @@ export class UserService {
             })
         );
     }
-    getById(idUser : any) {
+    getById(idUser : string) {
         return this.http.get<ResponseApi<User>>(environment.ApiUrlBase + '/api/users/byid/'+ idUser).pipe(
+            map(res=>{
+                res.resultObj = new User( res.resultObj);
+                return res
+            })
+        );
+    }
+
+    getDetail(idUser : string) {
+        return this.http.get<ResponseApi<User>>(environment.ApiUrlBase + '/api/users/detail/'+ idUser).pipe(
             map(res=>{
                 res.resultObj = new User( res.resultObj);
                 return res
@@ -36,7 +45,11 @@ export class UserService {
         return this.http.post<ResponseApi<boolean>>(environment.ApiUrlBase + '/api/users', user);
     }
 
-    delete(id: number) {
-        return this.http.delete(environment.ApiUrlBase + '/users/${id}');
+    edit(idUser : string, user: User) {
+        return this.http.put<ResponseApi<boolean>>(environment.ApiUrlBase + '/api/users/'+ idUser, user);
+    }
+
+    delete(idUser: string) {
+        return this.http.delete(environment.ApiUrlBase + '/api/users/'+ idUser);
     }
 }

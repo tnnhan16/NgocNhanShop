@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { AuthenticationService } from 'src/app/shared/services/authentication.service';
-import { AlertService } from 'src/app/shared/services/alert.service';
 import { ConfirmedValidator } from 'src/app/shared/helpers/confirmed.validator';
 import { UserService } from 'src/app/services/user.service';
 import { ResponseApi } from 'src/app/models/response-api';
 import { MessageError } from 'src/app/models/message-error';
 import { HttpErrorResponse } from '@angular/common/http';
 import { finalize } from 'rxjs/operators';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({ templateUrl: 'add-user.component.html' })
 export class AddUserComponent implements OnInit {
@@ -20,9 +19,8 @@ export class AddUserComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private authenticationService: AuthenticationService,
     private userService: UserService,
-    private alertService: AlertService
+    private toastr: ToastrService
   ) {}
 
   ngOnInit() {
@@ -46,15 +44,10 @@ export class AddUserComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-
-    // reset alerts on submit
-    this.alertService.clear();
-
     // stop here if form is invalid
     if (this.registerForm.invalid) {
       return;
     }
-
     this.loading = true;
     this.userService.register(this.registerForm.value)
       .pipe
@@ -63,8 +56,8 @@ export class AddUserComponent implements OnInit {
       }))
       .subscribe(
         data => {
-          this.alertService.success('Registration successful', true);
           this.router.navigate(['/admin/users']);
+          this.toastr.success('Đăng ký người dùng thành công!', 'Thông báo');
         },
         error=> {
           if (error instanceof HttpErrorResponse) {
@@ -76,6 +69,8 @@ export class AddUserComponent implements OnInit {
               }
             });
           }
-        });
+          this.toastr.warning('Thông tin nhập chưa hợp lệ!', 'Thông báo');
+        }
+      );
   }
 }

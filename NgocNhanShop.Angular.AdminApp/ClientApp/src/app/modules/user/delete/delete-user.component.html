@@ -1,0 +1,56 @@
+<div class="row">
+    <div class="col-md-8">
+      <div class="card card-user">
+        <div class="card-header">
+          <h5 class="card-title">Xóa người dùng</h5>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="firstName">Tên</label> 
+                <div class="text-info">{{user.firstName}} {{user.lastName}}</div>  
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="birthDay">Birthday</label>
+                <div class="text-info">{{user.birthDay | date:'dd/MM/yyyy'}}</div>  
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="email">Email</label>
+                <div class="text-info">{{user.email}}</div>  
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="phoneNumber">Phone</label>
+                <div class="text-info">{{user.phoneNumber}}</div>  
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="email">Username</label>
+                <div class="text-info">{{user.userName}}</div>  
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="update ml-auto mr-auto">
+              <button [disabled]="loading" class="btn btn-primary btn-round btn-custom" (click)="deleteUser()">
+                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                <i class="fa fa-floppy-o fa-lg" aria-hidden="true"></i> Xóa
+              </button>
+              <a routerLink="/admin/users/edit/{{user.id}}" class="btn btn-success btn-round btn-custom"><i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i> Cập nhật người dùng</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>

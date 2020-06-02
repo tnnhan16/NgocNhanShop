@@ -6,8 +6,9 @@
         </div>
         <div class="card-body">
           <form novalidate="" *ngIf="form" [formGroup]="form" (ngSubmit)="onSubmit()" class="ng-untouched ng-pristine ng-valid">
+            <input type="hidden" formControlName="id"/>
             <div class="row">
-              <div class="col-md-5 pr-1">
+              <div class="col-md-5">
                 <div class="form-group">
                   <label for="firstName">First Name</label>
                   <input type="text" formControlName="firstName" class="form-control"
@@ -17,7 +18,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-md-7 pl-1">
+              <div class="col-md-7">
                 <div class="form-group">
                   <label for="lastName">Last Name</label>
                   <input type="text" formControlName="lastName" class="form-control"
@@ -29,7 +30,7 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-md-6 pr-1">
+              <div class="col-md-6">
                 <div class="form-group">
                   <label for="birthDay">Birthday</label>
                   <input type="date" formControlName="birthDay" class="form-control"
@@ -40,7 +41,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-md-6 pl-1">
+              <div class="col-md-6">
                 <div class="form-group">
                   <label for="email">Email</label>
                   <input type="email" formControlName="email" class="form-control"
@@ -62,7 +63,7 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-md-6 pr-1">
+              <div class="col-md-6">
                 <div class="form-group">
                   <label for="phoneNumber">Phone</label>
                   <input type="text" formControlName="phoneNumber" class="form-control"
@@ -84,11 +85,13 @@
             </div>
             <div class="row">
               <div class="update ml-auto mr-auto">
-                <button [disabled]="loading" class="btn btn-primary btn-round">
+                <button [disabled]="loading" class="btn btn-primary btn-round btn-custom">
                   <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                  <i class="fa fa-floppy-o fa-lg" aria-hidden="true"></i> 
                   Lưu cập nhật
                 </button>
-                <a routerLink="/admin/users" class="btn btn-cance btn-round btn-cance">Cancel</a>
+                <a routerLink="/admin/users" class="btn btn-cance btn-round btn-cance">
+                  <i class="fa fa-ban fa-lg" aria-hidden="true"></i>  Cancel</a>
               </div>
             </div>
           </form>

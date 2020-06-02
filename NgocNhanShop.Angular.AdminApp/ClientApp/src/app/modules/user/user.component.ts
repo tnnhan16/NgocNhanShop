@@ -8,17 +8,21 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit {
- listUser: User[];
+  items: User[];
+ pageOfItems: Array<User>;
   constructor(private userService: UserService) { }
 
   ngOnInit() {
     this.userService.getAll()
     .subscribe(
       result => {
-        this.listUser = result.resultObj.items;
+        this.items = result.resultObj.items;
       },
       error => console.error(error)
       );
+  }
+  onChangePage(pageOfItems: Array<any>) {
+    this.pageOfItems = pageOfItems;
   }
 
 }

@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { AlertService } from 'src/app/shared/services/alert.service';
 import { UserService } from 'src/app/services/user.service';
 import { ResponseApi } from 'src/app/models/response-api';
 import { MessageError } from 'src/app/models/message-error';
 import { HttpErrorResponse } from '@angular/common/http';
 import { finalize } from 'rxjs/operators';
 import { User } from 'src/app/models/user';
+import { DatePipe } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({ templateUrl: 'edit-user.component.html' })
 export class EditUserComponent implements OnInit {
@@ -16,18 +17,20 @@ export class EditUserComponent implements OnInit {
   submitted = false;
   messageError: MessageError = {};
   user:User;
+  idUser:string;
 
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
     private userService: UserService,
-    private alertService: AlertService,
     private route: ActivatedRoute,
-  ) { }
+    private toastr: ToastrService,
+  ) 
+  {}
 
   ngOnInit() {
-    let idUser = this.route.snapshot.params['id'];
-    this.getById(idUser);
+    this.idUser = this.route.snapshot.params['id'];
+    this.getById(this.idUser);
   }
 
   // convenience getter for easy access to form fields
@@ -35,22 +38,20 @@ export class EditUserComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-    // reset alerts on submit
-    this.alertService.clear();
     // stop here if form is invalid
     if (this.form.invalid) {
       return;
     }
     this.loading = true;
-    this.userService.register(this.form.value)
+    this.userService.edit(this.idUser, this.form.value)
       .pipe
       (finalize(() => {
         this.loading = false;
       }))
       .subscribe(
         data => {
-          this.alertService.success('Registration successful', true);
           this.router.navigate(['/admin/users']);
+          this.toastr.success('Cập nhật người dùng thành công!', 'Thông báo');
         },
         error => {
           if (error instanceof HttpErrorResponse) {
@@ -62,6 +63,7 @@ export class EditUserComponent implements OnInit {
               }
             });
           }
+          this.toastr.warning('Thông tin cập nhật người dùng chưa hợp lệ!', 'Thông báo');
         }
       );
   }
@@ -75,19 +77,18 @@ export class EditUserComponent implements OnInit {
       .subscribe(
         data => {
           this.user = data.resultObj;
-          console.log(data.resultObj);
           this.validatorForm();
         },
         error => {
-          console.log(error)
-          // this.router.navigate(['/admin/users']);
+          this.router.navigate(['/admin/users']);
         });
   }
   validatorForm(){
     this.form = this.formBuilder.group({
+      id: new FormControl(this.user.id, [Validators.required]),
       firstName: new FormControl(this.user.firstName, [Validators.required]),
       lastName: new FormControl(this.user.lastName, [Validators.required]),
-      birthDay: new FormControl(this.user.birthDay, [Validators.required, Validators.pattern(/^\d{4}(\-)(((0)[0-9])|((1)[0-2]))(\-)([0-2][0-9]|(3)[0-1])$/)]),
+      birthDay: new FormControl(new DatePipe('en-US').transform(this.user.birthDay, 'yyyy-MM-dd'), [Validators.required, Validators.pattern(/^\d{4}(\-)(((0)[0-9])|((1)[0-2]))(\-)([0-2][0-9]|(3)[0-1])$/)]),
       phoneNumber: new FormControl(this.user.phoneNumber, [Validators.required, Validators.minLength(5), Validators.maxLength(15), Validators.pattern("^[0-9]*$")]),
       email: new FormControl(this.user.email, [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")]),
     }); 
