@@ -12,6 +12,7 @@ namespace NgocNhanShop.Data.Configurations
         public void Configure(EntityTypeBuilder<AppUser> builder)
         {
             builder.ToTable("AppUsers");
+            builder.HasKey(x => x.Id);
             builder.Property(x => x.FirstName).IsRequired().HasMaxLength(200);
             builder.Property(x => x.UserName).IsRequired();
             builder.Property(x => x.PhoneNumber).IsRequired();

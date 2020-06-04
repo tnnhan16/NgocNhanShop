@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NgocNhanShop.Data.Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
@@ -20,5 +21,7 @@ namespace NgocNhanShop.ViewModel.System.Dtos
         public string Email { get; set; }
         [Display(Name = "Số điện thoại")]
         public string PhoneNumber { get; set; }
+        public DateTime UpdateTime { get; set; }
+        public Guid UserUpdate { get; set; }
     }
 }

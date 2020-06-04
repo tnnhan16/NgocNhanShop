@@ -16,7 +16,7 @@ namespace NgocNhanShop.Business.System.Users
         Task<ApiResult<bool>> Delete(Guid id);
         Task<ApiResult<PageResult<UserViewModel>>> GetUsersPaging(UserPageRequest request);
         Task<ApiResult<UserUpdateRequest>>GetByUsername(string Username);
-        Task<ApiResult<UserUpdateRequest>> GetByUserId(Guid UserId);
+        Task<ApiResult<UserViewModel>> GetByUserId(Guid UserId);
         Task<ApiResult<UserViewModel>> GetUserDetail(Guid UserId);
 
     }

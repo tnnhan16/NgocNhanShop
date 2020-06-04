@@ -12,9 +12,7 @@ namespace NgocNhanShop.Data.Configurations
         public void Configure(EntityTypeBuilder<AppRoleAction> builder)
         {
             builder.ToTable("AppRoleAction");
-
-            builder.Property(x => x.Id).IsRequired();
-            builder.HasKey(sc => new { sc.RoleId, sc.ActionId });
+            builder.HasKey(sc => sc.Id);
 
             builder.HasOne<AppRole>(sc => sc.AppRoles)
                 .WithMany(s => s.AppRoleActions)

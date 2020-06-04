@@ -10,5 +10,6 @@ namespace NgocNhanShop.Data.Entities
         public DateTime? UpdateTime { get; set; }
         public Guid UserCreate { get; set; }
         public Guid? UserUpdate { get; set; }
+        public bool? IsDelete { get; set; }
     }
 }

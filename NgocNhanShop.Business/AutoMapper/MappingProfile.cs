@@ -14,12 +14,11 @@ namespace NgocNhanShop.Business.AutoMapper
         public MappingProfile()
         {
             //mapping product
-            CreateMap<ProductCreateRequest, Product>()
-                .ForMember(n => n.CreateTime, t => t.MapFrom(o => DateTime.Now))
-                .ForMember(n => n.UpdateTime, t => t.MapFrom(o => DateTime.Now))
-                .ForMember(n => n.IsDelete, t => t.MapFrom(o => false));
-            CreateMap<ProductUpdateRequest, Product>()
-                .ForMember(n => n.UpdateTime, t => t.MapFrom(o => DateTime.Now)).ReverseMap();
+            CreateMap<Product, ProductCreateRequest>().ReverseMap()
+               .ForMember(n => n.CreateTime, t => t.MapFrom(o => DateTime.Now))
+               .ForMember(n => n.IsDelete, t => t.MapFrom(o => false));
+
+            CreateMap<ProductUpdateRequest, Product>().ReverseMap();
             CreateMap<Product, ProductViewModel>().ReverseMap();
 
             //mapping category
@@ -32,8 +31,10 @@ namespace NgocNhanShop.Business.AutoMapper
             CreateMap<Categories, CategoryViewModel>().ReverseMap();
 
             //mapping user
-            CreateMap<AppUser,UserRegisterRequest>().ReverseMap();
-            CreateMap<UserUpdateRequest, AppUser>().ReverseMap();
+            CreateMap<AppUser, UserRegisterRequest>().ReverseMap()
+               .ForMember(n => n.CreateTime, t => t.MapFrom(o => DateTime.Now));
+            CreateMap<UserUpdateRequest, AppUser>()
+                .ForMember(n => n.UpdateTime, t => t.MapFrom(o => DateTime.Now));
             CreateMap<AppUser, UserViewModel>().ReverseMap();
 
         }

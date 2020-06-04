@@ -66,6 +66,7 @@ namespace NgocNhanShop.Api.Controllers
             {
                 return BadRequest(ModelState);
             }
+            
             var result = await _userService.Register(request);
             if (result.IsSuccessed)
             {

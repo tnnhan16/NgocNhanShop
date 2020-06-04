@@ -3,10 +3,29 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace NgocNhanShop.Data.Migrations
 {
-    public partial class update_database : Migration
+    public partial class database : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "AppActions",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    CreateTime = table.Column<DateTime>(nullable: false),
+                    UpdateTime = table.Column<DateTime>(nullable: true),
+                    UserCreate = table.Column<Guid>(nullable: false),
+                    UserUpdate = table.Column<Guid>(nullable: true),
+                    IsDelete = table.Column<bool>(nullable: true),
+                    ControllerName = table.Column<string>(nullable: true),
+                    ActionName = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(maxLength: 250, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppActions", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "AppRoleClaims",
                 columns: table => new
@@ -30,7 +49,12 @@ namespace NgocNhanShop.Data.Migrations
                     Name = table.Column<string>(nullable: true),
                     NormalizedName = table.Column<string>(nullable: true),
                     ConcurrencyStamp = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(maxLength: 250, nullable: false)
+                    Description = table.Column<string>(maxLength: 250, nullable: false),
+                    CreateTime = table.Column<DateTime>(nullable: false),
+                    UpdateTime = table.Column<DateTime>(nullable: true),
+                    UserCreate = table.Column<Guid>(nullable: false),
+                    UserUpdate = table.Column<Guid>(nullable: true),
+                    IsDelete = table.Column<bool>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -67,31 +91,19 @@ namespace NgocNhanShop.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AppUserRoles",
-                columns: table => new
-                {
-                    UserId = table.Column<Guid>(nullable: false),
-                    RoleId = table.Column<Guid>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AppUserRoles", x => new { x.UserId, x.RoleId });
-                });
-
-            migrationBuilder.CreateTable(
                 name: "AppUsers",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    UserName = table.Column<string>(nullable: true),
+                    UserName = table.Column<string>(nullable: false),
                     NormalizedUserName = table.Column<string>(nullable: true),
-                    Email = table.Column<string>(nullable: true),
+                    Email = table.Column<string>(nullable: false),
                     NormalizedEmail = table.Column<string>(nullable: true),
                     EmailConfirmed = table.Column<bool>(nullable: false),
                     PasswordHash = table.Column<string>(nullable: true),
                     SecurityStamp = table.Column<string>(nullable: true),
                     ConcurrencyStamp = table.Column<string>(nullable: true),
-                    PhoneNumber = table.Column<string>(nullable: true),
+                    PhoneNumber = table.Column<string>(nullable: false),
                     PhoneNumberConfirmed = table.Column<bool>(nullable: false),
                     TwoFactorEnabled = table.Column<bool>(nullable: false),
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
@@ -99,7 +111,12 @@ namespace NgocNhanShop.Data.Migrations
                     AccessFailedCount = table.Column<int>(nullable: false),
                     LastName = table.Column<string>(maxLength: 200, nullable: false),
                     FirstName = table.Column<string>(maxLength: 200, nullable: false),
-                    BirthDay = table.Column<string>(nullable: false)
+                    BirthDay = table.Column<DateTime>(nullable: false),
+                    CreateTime = table.Column<DateTime>(nullable: false),
+                    UpdateTime = table.Column<DateTime>(nullable: true),
+                    UserCreate = table.Column<Guid>(nullable: false),
+                    UserUpdate = table.Column<Guid>(nullable: true),
+                    IsDelete = table.Column<bool>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -126,18 +143,73 @@ namespace NgocNhanShop.Data.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(maxLength: 255, nullable: false),
-                    ParentId = table.Column<int>(nullable: true),
-                    Status = table.Column<int>(nullable: false),
                     CreateTime = table.Column<DateTime>(nullable: false),
                     UpdateTime = table.Column<DateTime>(nullable: true),
                     UserCreate = table.Column<Guid>(nullable: false),
                     UserUpdate = table.Column<Guid>(nullable: true),
-                    IsDelete = table.Column<bool>(nullable: true)
+                    IsDelete = table.Column<bool>(nullable: true),
+                    Name = table.Column<string>(maxLength: 255, nullable: false),
+                    ParentId = table.Column<int>(nullable: true),
+                    Status = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Categories", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AppRoleAction",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    IsDelete = table.Column<bool>(nullable: true),
+                    RoleId = table.Column<Guid>(nullable: false),
+                    ActionId = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppRoleAction", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AppRoleAction_AppActions_ActionId",
+                        column: x => x.ActionId,
+                        principalTable: "AppActions",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AppRoleAction_AppRoles_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "AppRoles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AppUserRoles",
+                columns: table => new
+                {
+                    UserId = table.Column<Guid>(nullable: false),
+                    RoleId = table.Column<Guid>(nullable: false),
+                    Discriminator = table.Column<string>(nullable: false),
+                    Id = table.Column<Guid>(nullable: true),
+                    IsDelete = table.Column<bool>(nullable: true),
+                    AppRolesId = table.Column<Guid>(nullable: true),
+                    AppUsersId = table.Column<Guid>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppUserRoles", x => new { x.UserId, x.RoleId });
+                    table.ForeignKey(
+                        name: "FK_AppUserRoles_AppRoles_AppRolesId",
+                        column: x => x.AppRolesId,
+                        principalTable: "AppRoles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_AppUserRoles_AppUsers_AppUsersId",
+                        column: x => x.AppUsersId,
+                        principalTable: "AppUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -146,13 +218,14 @@ namespace NgocNhanShop.Data.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(maxLength: 255, nullable: false),
-                    Price = table.Column<decimal>(nullable: false),
                     CreateTime = table.Column<DateTime>(nullable: false),
                     UpdateTime = table.Column<DateTime>(nullable: true),
                     UserCreate = table.Column<Guid>(nullable: false),
                     UserUpdate = table.Column<Guid>(nullable: true),
                     IsDelete = table.Column<bool>(nullable: true),
+                    Name = table.Column<string>(maxLength: 255, nullable: false),
+                    Price = table.Column<decimal>(nullable: false),
+                    Image = table.Column<string>(nullable: true),
                     CategoryId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -167,6 +240,26 @@ namespace NgocNhanShop.Data.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_AppRoleAction_ActionId",
+                table: "AppRoleAction",
+                column: "ActionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppRoleAction_RoleId",
+                table: "AppRoleAction",
+                column: "RoleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppUserRoles_AppRolesId",
+                table: "AppUserRoles",
+                column: "AppRolesId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppUserRoles_AppUsersId",
+                table: "AppUserRoles",
+                column: "AppUsersId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Products_CategoryId",
                 table: "Products",
                 column: "CategoryId");
@@ -175,10 +268,10 @@ namespace NgocNhanShop.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "AppRoleClaims");
+                name: "AppRoleAction");
 
             migrationBuilder.DropTable(
-                name: "AppRoles");
+                name: "AppRoleClaims");
 
             migrationBuilder.DropTable(
                 name: "AppUserClaims");
@@ -190,13 +283,19 @@ namespace NgocNhanShop.Data.Migrations
                 name: "AppUserRoles");
 
             migrationBuilder.DropTable(
-                name: "AppUsers");
-
-            migrationBuilder.DropTable(
                 name: "AppUserTokens");
 
             migrationBuilder.DropTable(
                 name: "Products");
+
+            migrationBuilder.DropTable(
+                name: "AppActions");
+
+            migrationBuilder.DropTable(
+                name: "AppRoles");
+
+            migrationBuilder.DropTable(
+                name: "AppUsers");
 
             migrationBuilder.DropTable(
                 name: "Categories");

@@ -9,11 +9,10 @@ namespace NgocNhanShop.Data.Entities
     {
         public Guid Id { get; set; }
 
-        public Guid RoleId { get; set; }
+        public bool? IsDelete { get; set; }
+
         public AppRole AppRoles { get; set; }
 
-
-        public Guid UserId { get; set; }
-        public AppAction AppAction { get; set; }
+        public AppUser AppUsers { get; set; }
     }
 }

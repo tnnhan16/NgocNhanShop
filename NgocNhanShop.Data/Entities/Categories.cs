@@ -11,7 +11,6 @@ namespace NgocNhanShop.Data.Entities
         public string Name { get; set; }
         public int? ParentId { get; set; }
         public Status Status { get; set; }
-        public bool? IsDelete { get; set; }
 
         public List<Product> Products { get; set; }
 

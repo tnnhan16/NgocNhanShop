@@ -7,11 +7,11 @@ using System.Text;
 
 namespace NgocNhanShop.Data.Configurations
 {
-    public class AppRoleConfiguration : IEntityTypeConfiguration<AppRole>
+    public class AppActionConfiguration : IEntityTypeConfiguration<AppAction>
     {
-        public void Configure(EntityTypeBuilder<AppRole> builder)
+        public void Configure(EntityTypeBuilder<AppAction> builder)
         {
-            builder.ToTable("AppRoles");
+            builder.ToTable("AppActions");
             builder.Property(x => x.Description).IsRequired().HasMaxLength(250);
             builder.HasKey(x => x.Id);
         }

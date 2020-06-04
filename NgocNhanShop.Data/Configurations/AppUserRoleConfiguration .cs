@@ -7,23 +7,18 @@ using System.Text;
 
 namespace NgocNhanShop.Data.Configurations
 {
-    public class AppUserRoleConfiguration : IEntityTypeConfiguration<AppRoleAction>
+    public class AppUserRoleConfiguration : IEntityTypeConfiguration<AppUserRole>
     {
-        public void Configure(EntityTypeBuilder<AppRoleAction> builder)
+        public void Configure(EntityTypeBuilder<AppUserRole> builder)
         {
-            builder.ToTable("AppRoleAction");
-
-            builder.Property(x => x.Id).IsRequired();
-            builder.HasKey(sc => new { sc.RoleId, sc.ActionId });
-
+            builder.ToTable("AppUserRoles");
+            builder.HasKey(sc => new { sc.UserId, sc.RoleId });
             builder.HasOne<AppRole>(sc => sc.AppRoles)
-                .WithMany(s => s.AppRoleActions)
+                .WithMany(s => s.AppUserRoles)
                 .HasForeignKey(sc => sc.RoleId);
-
-
-            builder.HasOne<AppAction>(sc => sc.AppActions)
-            .WithMany(s => s.AppRoleActions)
-            .HasForeignKey(sc => sc.ActionId);
+            builder.HasOne<AppUser>(sc => sc.AppUsers)
+            .WithMany(s => s.AppUserRoles)
+            .HasForeignKey(sc => sc.UserId);
         }
 
 

@@ -1,11 +1,12 @@
-﻿using System;
+﻿using NgocNhanShop.Data.Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace NgocNhanShop.ViewModel.System.Dtos
 {
-    public class UserRegisterRequest
+    public class UserRegisterRequest: Base
     {
         [Display(Name = "Họ")]
         public string LastName { get; set; }

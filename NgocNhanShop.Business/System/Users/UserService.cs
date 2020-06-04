@@ -145,7 +145,7 @@ namespace NgocNhanShop.Business.System
                 return new ApiErrorResult<Message>(listMessage);
             }
             var user = await _userManager.FindByIdAsync(id.ToString());
-            _mapper.Map<UserUpdateRequest,AppUser>(request, user);
+            _mapper.Map<UserUpdateRequest, AppUser>(request, user);
             var result = await _userManager.UpdateAsync(user);
             if (result.Succeeded)
             {
@@ -164,18 +164,18 @@ namespace NgocNhanShop.Business.System
             return new ApiSuccessResult<UserUpdateRequest>();
         }
 
-        public async Task<ApiResult<UserUpdateRequest>> GetByUserId(Guid UserId)
+        public async Task<ApiResult<UserViewModel>> GetByUserId(Guid UserId)
         {
             var user = await _userManager.FindByIdAsync(UserId.ToString());
 
             if (user == null)
             {
-                return new ApiErrorResult<UserUpdateRequest>($"Không tìm thấy người dùng này");
+                return new ApiErrorResult<UserViewModel>($"Không tìm thấy người dùng này");
             }
 
-            var userDto = _mapper.Map<UserUpdateRequest>(user);
+            var userDto = _mapper.Map<UserViewModel>(user);
 
-            return new ApiSuccessResult<UserUpdateRequest>(userDto);
+            return new ApiSuccessResult<UserViewModel>(userDto);
         }
 
         public async Task<ApiResult<UserViewModel>> GetUserDetail(Guid UserId)
