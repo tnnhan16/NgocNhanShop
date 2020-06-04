@@ -5,7 +5,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using NgocNhanShop.ViewModel.Common.Dtos;
 using NgocNhanShop.ViewModel.System.Dtos.Users;
-using NgocNhanShop.Business.System.Users;
 using NgocNhanShop.Data.Entities;
 using NgocNhanShop.Utilities.Exceptions;
 using System;
@@ -15,16 +14,17 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using NgocNhanShop.Business.System.Roles;
 
 namespace NgocNhanShop.Business.System
 {
-    public class UserService : IUserService
+    public class RoleService : IRoleService
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
         private readonly IConfiguration _config;
         private readonly IMapper _mapper;
-        public UserService(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, IConfiguration config, IMapper mapper)
+        public RoleService(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, IConfiguration config, IMapper mapper)
         {
             _userManager = userManager;
             _signInManager = signInManager;

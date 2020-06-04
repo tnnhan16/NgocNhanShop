@@ -2,7 +2,6 @@
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using NgocNhanShop.ViewModel.Common.Dtos;
-using NgocNhanShop.ViewModel.System.Dtos;
 using NgocNhanShop.Data.Entities;
 using System;
 using System.Collections.Generic;
@@ -14,6 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using NgocNhanShop.Utilities.Constant;
 using NgocNhanShop.AdminApp.Routers;
+using NgocNhanShop.ViewModel.System.Dtos.Users;
 
 namespace NgocNhanShop.AdminApp.Service.User
 {

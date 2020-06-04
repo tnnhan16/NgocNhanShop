@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Mvc;
 using NgocNhanShop.AdminApp.Service.User;
-using NgocNhanShop.ViewModel.System.Dtos;
+using NgocNhanShop.ViewModel.System.Dtos.Users;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;

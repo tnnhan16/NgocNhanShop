@@ -4,24 +4,25 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace NgocNhanShop.ViewModel.System.Dtos
+namespace NgocNhanShop.ViewModel.System.Dtos.Users
 {
-    public class UserUpdateRequest
+    public class UserRegisterRequest: Base
     {
-        public Guid Id { get; set; }
-
         [Display(Name = "Họ")]
         public string LastName { get; set; }
         [Display(Name = "Tên")]
         public string FirstName { get; set; }
-        [Display(Name = "Ngày sinh")]
+        [Display(Name ="Ngày sinh")]
         [DataType(DataType.Date)]
         public DateTime BirthDay { get; set; }
         [Display(Name = "Tài khoản")]
+        public string UserName { get; set; }
+        [Display(Name = "Mật khẩu")]
+        public string Password { get; set; }
+        [Display(Name = "Mật khẩu xác nhận")]
+        public string ConfirmPassword { get; set; }
         public string Email { get; set; }
         [Display(Name = "Số điện thoại")]
         public string PhoneNumber { get; set; }
-        public DateTime UpdateTime { get; set; }
-        public Guid UserUpdate { get; set; }
     }
 }
