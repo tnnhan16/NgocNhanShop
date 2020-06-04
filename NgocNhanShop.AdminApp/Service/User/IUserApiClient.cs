@@ -9,7 +9,7 @@ namespace NgocNhanShop.AdminApp.Service.User
 {
     public interface IUserApiClient
     {
-        Task<ApiResult<string>> Login(UserLoginRequest request);
+        Task<ApiResult<LoginResponse>> Login(UserLoginRequest request);
 
         Task<ApiResult<PageResult<UserViewModel>>> GetUsersPagings(UserPageRequest request);
 

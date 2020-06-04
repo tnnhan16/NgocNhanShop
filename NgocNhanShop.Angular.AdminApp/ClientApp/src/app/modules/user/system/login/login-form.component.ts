@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from 'src/app/shared/services/authentication.service';
 import { AlertService } from 'src/app/shared/services/alert.service';
+import { ResponseApi } from 'src/app/models/response-api';
 
 @Component({ 
   selector: 'app-login',
@@ -59,7 +60,8 @@ export class LoginFormComponent implements OnInit {
           this.router.navigate([this.returnUrl]);
         },
         error => {
-          this.message = error;
+          let result: ResponseApi<boolean> = error.error;
+          this.message = result.message;
           this.loading = false;
         });
   }

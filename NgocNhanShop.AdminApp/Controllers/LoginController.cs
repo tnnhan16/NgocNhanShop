@@ -54,13 +54,13 @@ namespace NgocNhanShop.AdminApp.Controllers
                 ModelState.AddModelError("Password", response.Message);
                 return View();
             }
-            var userPrincipal = this.ValidateToken(response.ResultObj);
+            var userPrincipal = this.ValidateToken(response.ResultObj.Token);
             var authProperties = new AuthenticationProperties
             {
                 ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(30),
                 IsPersistent = false,
             };
-            HttpContext.Session.SetString("Token", response.ResultObj);
+            HttpContext.Session.SetString("Token", response.ResultObj.Token);
             await HttpContext.SignInAsync(
                 CookieAuthenticationDefaults.AuthenticationScheme,
                 userPrincipal,

@@ -9,33 +9,38 @@ namespace NgocNhanShop.AdminApp.Routers
 {
     public class UserRouter
     {
-        public string GetRouterApiUserAll(UserPageRequest request)
+        public string GetRouterApiAll(UserPageRequest request)
         {
-            return $"/api/users/paging?pageIndex=" + $"{request.PageIndex}&pageSize={request.PageSize}&keyword={request.Keyword}";
+            return $"/api/users/getallpaging?pageIndex=" + $"{request.PageIndex}&pageSize={request.PageSize}&keyword={request.Keyword}";
         }
-        public string GetRouterApiUserById(Guid Id)
+        public string GetRouterApiByUserId(Guid Id)
         {
-            return $"/api/users/byid/{Id}";
-        }
-
-        public string GetRouterApiUserByUserName(string UserName)
-        {
-            return $"/api/users/byname?Username=" + $"{UserName}";
+            return $"/api/users/getbyuserid/{Id}";
         }
 
-        public string GetRouterApiDetailUser(Guid Id)
+        public string GetRouterApiByUserName(string UserName)
+        {
+            return $"/api/users/getbyusername?Username=" + $"{UserName}";
+        }
+
+        public string GetRouterApiDetail(Guid Id)
         {
             return $"/api/users/detail/{Id}";
         }
 
-        public string GetRouterApiUpdateOrDeleteUser(Guid Id)
+        public string GetRouterApiUpdate(Guid Id)
         {
-            return $"/api/users/{Id}";
+            return $"/api/users/update/{Id}";
         }
 
-        public string GetRouterApiRegisterUser()
+        public string GetRouterApiDelete(Guid Id)
         {
-            return "/api/users";
+            return $"/api/users/delete/{Id}";
+        }
+
+        public string GetRouterApiRegister()
+        {
+            return "/api/users/register";
         }
 
         public string GetRouterApiLogin()

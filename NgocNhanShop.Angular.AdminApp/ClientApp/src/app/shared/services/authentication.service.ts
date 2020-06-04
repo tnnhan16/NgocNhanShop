@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { UserInfo } from 'src/app/models/user-info';
+import { ResponseApi } from 'src/app/models/response-api';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
@@ -20,12 +21,12 @@ export class AuthenticationService {
     }
 
     login(username, password) {
-        return this.http.post<any>(environment.ApiUrlBase + '/api/users/login', {username,password})
-            .pipe(map(user => {
+        return this.http.post<ResponseApi<UserInfo>>(environment.ApiUrlBase + '/api/users/login', {username,password})
+            .pipe(map(response => {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
-                localStorage.setItem('currentUser', JSON.stringify(user));
-                this.currentUserSubject.next(user);
-                return user;
+                localStorage.setItem('currentUser', JSON.stringify(response.resultObj));
+                this.currentUserSubject.next(response.resultObj);
+                return response;
             }));
     }
     logout() {

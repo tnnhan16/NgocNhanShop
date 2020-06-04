@@ -10,5 +10,6 @@ namespace NgocNhanShop.Data.Entities
         public string LastName { get; set; }
         public string FirstName { get; set; }
         public DateTime BirthDay { get; set; }
+        public List<AppUserRole> AppUserRoles { get; set; }
     }
 }

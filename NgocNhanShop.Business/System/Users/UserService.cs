@@ -32,17 +32,17 @@ namespace NgocNhanShop.Business.System
             _mapper = mapper;
 
         }
-        public async Task<ApiResult<string>> Login(UserLoginRequest request)
+        public async Task<ApiResult<LoginResponse>> Login(UserLoginRequest request)
         {
             var user = await _userManager.FindByNameAsync(request.Username);
             if(user == null)
             {
-                return new ApiErrorResult<string>("Tài khoản hay mật khẩu nhậu không chính xác");
+                return new ApiErrorResult<LoginResponse>("Tài khoản hay mật khẩu nhậu không chính xác");
             }
             var result = await _signInManager.PasswordSignInAsync(user, request.Password, true, true);
             if(!result.Succeeded)
             {
-                return new ApiErrorResult<string>("Tài khoản hay mật khẩu nhậu không chính xác");
+                return new ApiErrorResult<LoginResponse>("Tài khoản hay mật khẩu nhậu không chính xác");
             }
             var roles = await _userManager.GetRolesAsync(user);
             var claim = new Claim[]
@@ -61,7 +61,19 @@ namespace NgocNhanShop.Business.System
                 claim,
                 expires: DateTime.Now.AddHours(3),
                 signingCredentials: creds);
-            return new ApiSuccessResult<string>(new JwtSecurityTokenHandler().WriteToken(token));
+            var loginResponse = new LoginResponse
+            {
+                Token = new JwtSecurityTokenHandler().WriteToken(token),
+                User = new UserUpdateRequest
+                {
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    Email = user.Email,
+                    BirthDay = user.BirthDay,
+                    PhoneNumber = user.PhoneNumber,
+                },
+            };
+            return new ApiSuccessResult<LoginResponse>(loginResponse);
         }
 
         public async Task<ApiResult<Message>> Register(UserRegisterRequest request)

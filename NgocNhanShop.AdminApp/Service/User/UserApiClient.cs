@@ -33,7 +33,7 @@ namespace NgocNhanShop.AdminApp.Service.User
            
         }
 
-        public async Task<ApiResult<string>>Login(UserLoginRequest request)
+        public async Task<ApiResult<LoginResponse>>Login(UserLoginRequest request)
         {
 
             var json = JsonConvert.SerializeObject(request);
@@ -45,13 +45,13 @@ namespace NgocNhanShop.AdminApp.Service.User
             var body = await response.Content.ReadAsStringAsync();
             if (response.IsSuccessStatusCode)
             {
-                ApiResult<string> myDeserializedObj = (ApiResult<string>)JsonConvert.DeserializeObject(body,
-                    typeof(ApiResult<string>));
+                ApiResult<LoginResponse> myDeserializedObj = (ApiResult<LoginResponse>)JsonConvert.DeserializeObject(body,
+                    typeof(ApiResult<LoginResponse>));
 
                 return myDeserializedObj;
             }
 
-            return JsonConvert.DeserializeObject<ApiResult<string>>(body);
+            return JsonConvert.DeserializeObject<ApiResult<LoginResponse>>(body);
         }
 
         public async Task<ApiResult<Message>> RegisterUser(UserRegisterRequest request)
@@ -67,7 +67,7 @@ namespace NgocNhanShop.AdminApp.Service.User
             var json = JsonConvert.SerializeObject(request);
             var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
 
-            var response = await client.PostAsync(userRouter.GetRouterApiRegisterUser(), httpContent);
+            var response = await client.PostAsync(userRouter.GetRouterApiRegister(), httpContent);
             var result = await response.Content.ReadAsStringAsync();
             if (response.IsSuccessStatusCode)
                 return JsonConvert.DeserializeObject<ApiSuccessResult<Message>>(result);
@@ -77,38 +77,38 @@ namespace NgocNhanShop.AdminApp.Service.User
 
         public async Task<ApiResult<UserUpdateRequest>> GetByUserId(Guid id)
         {
-            var url = userRouter.GetRouterApiUserById(id);
+            var url = userRouter.GetRouterApiByUserId(id);
             return await GetByAsync<UserUpdateRequest>(url);
         }
 
         public async Task<ApiResult<UserViewModel>> GetUserDetail(Guid id)
         {
-            var url = userRouter.GetRouterApiDetailUser(id);
+            var url = userRouter.GetRouterApiDetail(id);
             return await GetByAsync<UserViewModel>(url);
         }
 
         public async Task<ApiResult<UserViewModel>> GetByUsername(string Username)
         {
-            var url = userRouter.GetRouterApiUserByUserName(Username);
+            var url = userRouter.GetRouterApiByUserName(Username);
             return await GetByAsync<UserViewModel>(url);
         }
 
         public async Task<ApiResult<PageResult<UserViewModel>>> GetUsersPagings(UserPageRequest request)
         {
-            var url = userRouter.GetRouterApiUserAll(request);
+            var url = userRouter.GetRouterApiAll(request);
             return await GetAllAsync<ApiResult<PageResult<UserViewModel>>>(url);
 
         }
 
         public async Task<ApiResult<Message>> UpdateUser(Guid id, UserUpdateRequest request)
         {
-            var url = userRouter.GetRouterApiUpdateOrDeleteUser(id);
+            var url = userRouter.GetRouterApiUpdate(id);
             return await PutAsync<Message>(url, request);
         }
 
         public async Task<ApiResult<bool>> DeleteUser(Guid id)
         {
-            var url = userRouter.GetRouterApiUpdateOrDeleteUser(id);
+            var url = userRouter.GetRouterApiDelete(id);
             return await DeleteAsync<bool>(url);
         }
     }

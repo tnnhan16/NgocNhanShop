@@ -23,3 +23,6 @@ button.btn-custom, a.btn-custom, .page-item.active .page-link {
     border-color: #ef8157 !important;
 
 }
+a.no-hover{
+    pointer-events: none;
+}

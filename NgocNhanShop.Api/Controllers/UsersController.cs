@@ -11,9 +11,8 @@ using NgocNhanShop.Business.System.Users;
 namespace NgocNhanShop.Api.Controllers
 {
     [Route("api/[controller]")]
-    [ApiController]
     [Authorize]
-    public class UsersController : ControllerBase
+    public class UsersController : BaseController
     {
         private readonly IUserService _userService;
         public UsersController(IUserService userService)
@@ -21,7 +20,7 @@ namespace NgocNhanShop.Api.Controllers
             _userService = userService;
         }
 
-        [HttpPost("login")]
+        [HttpPost("Login")]
         [AllowAnonymous]
         public async Task<IActionResult> Login([FromBody]UserLoginRequest request)
         {
@@ -38,28 +37,28 @@ namespace NgocNhanShop.Api.Controllers
         }
 
 
-        [HttpGet("byid/{id}")]
+        [HttpGet("GetByUserId/{id}")]
         public async Task<IActionResult> GetByUserId(Guid id)
         {
             var result = await _userService.GetByUserId(id);
             return Ok(result);
         }
 
-        [HttpGet("detail/{id}")]
-        public async Task<IActionResult> GetUserDetail(Guid id)
+        [HttpGet("Detail/{id}")]
+        public async Task<IActionResult> Detail(Guid id)
         {
             var result = await _userService.GetUserDetail(id);
             return Ok(result);
         }
 
-        [HttpGet("byname/{Username}")]
+        [HttpGet("GetByUsername/{Username}")]
         public async Task<IActionResult> GetByUsername(string Username)
         {
             var result = await _userService.GetByUsername(Username);
             return Ok(result);
         }
 
-        [HttpPost]
+        [HttpPost("Register")]
         [AllowAnonymous]
         public async Task<IActionResult> Register([FromBody]UserRegisterRequest request)
         {
@@ -75,14 +74,14 @@ namespace NgocNhanShop.Api.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet("paging")]
+        [HttpGet("GetAllPaging")]
         public async Task<IActionResult> GetAllPaging([FromQuery]UserPageRequest request)
         {
             var products = await _userService.GetUsersPaging(request);
             return Ok(products);
         }
 
-        [HttpPut("{UserId}")]
+        [HttpPut("Update/{UserId}")]
         public async Task<IActionResult> Update(Guid UserId, [FromBody]UserUpdateRequest request)
         {
             if (!ModelState.IsValid)
@@ -96,7 +95,7 @@ namespace NgocNhanShop.Api.Controllers
             return Ok(result);
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("Delete/{id}")]
         public async Task<IActionResult> Delete(Guid id)
         {
             var result = await _userService.Delete(id);

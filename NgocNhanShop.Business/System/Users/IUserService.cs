@@ -10,7 +10,7 @@ namespace NgocNhanShop.Business.System.Users
 {
     public interface IUserService
     {
-        Task<ApiResult<string>> Login(UserLoginRequest request);
+        Task<ApiResult<LoginResponse>> Login(UserLoginRequest request);
         Task<ApiResult<Message>> Register(UserRegisterRequest request);
         Task<ApiResult<Message>> Update(Guid id, UserUpdateRequest request);
         Task<ApiResult<bool>> Delete(Guid id);
