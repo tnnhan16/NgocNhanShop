@@ -21,12 +21,12 @@ using NgocNhanShop.Business.AutoMapper;
 using NgocNhanShop.Business.Catelog.Category;
 using NgocNhanShop.Business.Catelog.Prodcuts;
 using NgocNhanShop.Business.System;
-using NgocNhanShop.ViewModel.System.Dtos;
 using NgocNhanShop.Business.System.Users;
 using NgocNhanShop.Data.Entities;
 using NgocNhanShop.EF.Data;
 using NgocNhanShop.Utilities.Constant;
 using NgocNhanShop.Validator.Validator.Users;
+using NgocNhanShop.Business.System.Roles;
 
 namespace NgocNhanShop.Api
 {
@@ -70,6 +70,8 @@ namespace NgocNhanShop.Api
             services.AddTransient<RoleManager<AppRole>, RoleManager<AppRole>>();
 
             services.AddTransient<IUserService, UserService>();
+
+            services.AddTransient<IRoleService, RoleService>();
 
             services.AddControllers().AddFluentValidation(fv=>fv.RegisterValidatorsFromAssemblyContaining<UserLoginRequestValidator>());
 

@@ -26,3 +26,6 @@ button.btn-custom, a.btn-custom, .page-item.active .page-link {
 a.no-hover{
     pointer-events: none;
 }
+.list-action{
+    background-color: #f0f0f0 !important;
+}

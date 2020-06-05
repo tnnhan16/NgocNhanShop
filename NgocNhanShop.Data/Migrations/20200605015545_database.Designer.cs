@@ -10,7 +10,7 @@ using NgocNhanShop.EF.Data;
 namespace NgocNhanShop.Data.Migrations
 {
     [DbContext(typeof(NgocNhanShopDbContext))]
-    [Migration("20200604140143_database")]
+    [Migration("20200605015545_database")]
     partial class database
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

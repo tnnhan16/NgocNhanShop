@@ -13,7 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using NgocNhanShop.Utilities.Constant;
 using NgocNhanShop.AdminApp.Routers;
-using NgocNhanShop.ViewModel.System.Dtos.Users;
+using NgocNhanShop.ViewModel.System.Users.Dtos;
 
 namespace NgocNhanShop.AdminApp.Service.User
 {

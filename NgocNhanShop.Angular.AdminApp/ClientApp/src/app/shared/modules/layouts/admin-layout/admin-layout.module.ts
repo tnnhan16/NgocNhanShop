@@ -11,7 +11,7 @@ import { DashboardComponent } from 'src/app/components/dashboard/dashboard.compo
     NgbModule,
   ],
   declarations: [
-    DashboardComponent,
+    DashboardComponent
   ]
 })
 

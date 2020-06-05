@@ -1,4 +1,4 @@
-﻿using NgocNhanShop.ViewModel.System.Dtos.Users;
+﻿using NgocNhanShop.ViewModel.System.Users.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;

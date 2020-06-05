@@ -15,7 +15,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
 using NgocNhanShop.AdminApp.Service.User;
-using NgocNhanShop.ViewModel.System.Dtos.Users;
+using NgocNhanShop.ViewModel.System.Users.Dtos;
 
 namespace NgocNhanShop.AdminApp.Controllers
 {

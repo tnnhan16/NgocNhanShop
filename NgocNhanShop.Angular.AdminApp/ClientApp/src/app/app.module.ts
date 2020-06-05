@@ -23,7 +23,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DetailUserComponent } from './modules/user/detail/detail-user.component';
 import { DeleteUserComponent } from './modules/user/delete/delete-user.component';
-import { JwPaginationComponent } from './shared/components/jw-pagination/jw-pagination.component';
+import { RoleModule } from './modules/role/role.module';
 
 @NgModule({
   declarations: [
@@ -37,7 +37,6 @@ import { JwPaginationComponent } from './shared/components/jw-pagination/jw-pagi
     EditUserComponent,
     DetailUserComponent,
     DeleteUserComponent,
-    JwPaginationComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -51,6 +50,7 @@ import { JwPaginationComponent } from './shared/components/jw-pagination/jw-pagi
     FooterModule,
     AdminLayoutModule,
     UserModule,
+    RoleModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot({
       timeOut: 5000,
@@ -58,12 +58,14 @@ import { JwPaginationComponent } from './shared/components/jw-pagination/jw-pagi
       preventDuplicates: false,
       disableTimeOut: false
     }),
+    
   ],
   providers: [
     DatePipe,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+
 })
 export class AppModule { }

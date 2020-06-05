@@ -1,5 +1,5 @@
 ﻿using NgocNhanShop.ViewModel.Common.Dtos;
-using NgocNhanShop.ViewModel.System.Dtos.Users;
+using NgocNhanShop.ViewModel.System.Users.Dtos;
 using NgocNhanShop.Data.Entities;
 using System;
 using System.Collections.Generic;

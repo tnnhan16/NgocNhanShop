@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace NgocNhanShop.ViewModel.System.Dtos.Users
+namespace NgocNhanShop.ViewModel.System.Users.Dtos
 {
     public class UserLoginRequest
     {

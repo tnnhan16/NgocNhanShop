@@ -10,17 +10,23 @@ import { AddUserComponent } from './modules/user/add/add-user.component';
 import { EditUserComponent } from './modules/user/edit/edit-user.component';
 import { DetailUserComponent } from './modules/user/detail/detail-user.component';
 import { DeleteUserComponent } from './modules/user/delete/delete-user.component';
+import { RoleComponent } from './modules/role/role.component';
+import { AddRoleComponent } from './modules/role/add/add-role.component';
 
 const routes: Routes = [
     { path: 'admin', component: AdminLayoutComponent, canActivate: [AuthGuard],
     children:[
         { path: '', component: DashboardComponent },
+        //user
         { path: 'users', component: UserComponent },
         { path: 'users/add', component: AddUserComponent },
         { path: 'users/edit/:id', component:EditUserComponent },
         { path: 'users/detail/:id', component:DetailUserComponent },
         { path: 'users/delete/:id', component: DeleteUserComponent },
-
+        {
+            path: 'role',
+            loadChildren: () => import('./modules/role/role.module').then(m => m.RoleModule),    
+        }
     ]},
     { path: 'login', component: LoginFormComponent },
     { path: 'register', component: RegisterUserFormComponent },

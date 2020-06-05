@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace NgocNhanShop.ViewModel.System.Dtos.Users
+namespace NgocNhanShop.ViewModel.System.Roles.Dtos
 {
-    public class UserPageRequest : PageRequestBase
+    public class RolePageRequest : PageRequestBase
     {
         public string Keyword { get; set; }
     }

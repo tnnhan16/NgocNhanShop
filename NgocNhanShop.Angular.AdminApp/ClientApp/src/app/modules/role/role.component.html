@@ -1,0 +1,21 @@
+<a routerLink="/admin/role/add" class="btn btn-primary btn-round btn-custom"><i class="fa fa-plus-circle fa-lg" aria-hidden="true"></i> Thêm mới</a>  
+<table class="table table-striped table-border table-hover table-custom" aria-labelledby="tableLabel" *ngIf="pageOfItems">
+  <thead>
+    <tr>
+      <th>Tên</th>
+      <th>Mô tả</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of pageOfItems">
+      <td>{{ item.name }}</td>
+      <td>{{ item.description }}</td>
+      <td class="text-center link-action">
+        <a routerLink="/admin/role/edit/{{ item.id }}" title="sửa"><i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i></a>  
+        <a routerLink="/admin/role/delete/{{ item.id }}" title="xóa"><i class="fa fa-trash-o fa-lg" aria-hidden="true"></i></a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<jw-pagination [items]="items" (changePage)="onChangePage($event)"></jw-pagination>

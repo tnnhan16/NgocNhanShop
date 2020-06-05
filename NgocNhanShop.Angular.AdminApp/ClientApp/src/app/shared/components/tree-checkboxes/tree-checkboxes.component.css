@@ -1,0 +1,15 @@
+.mat-form-field {
+    margin-right: 4px;
+}
+mat-icon, button, button:hover , mat-icon:hover{
+  border-color: white;
+  background-color: white;
+  border: none;
+  background: transparent;
+}
+button:active, mat-icon:active, button:target,  mat-icon:target, button:focus ,mat-icon:focus {
+  border-color: white;
+  background-color: white;
+  border: none;
+  background: transparent;
+}

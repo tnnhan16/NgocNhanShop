@@ -3,7 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using NgocNhanShop.Utilities.Constant;
 using NgocNhanShop.ViewModel.Common.Dtos;
-using NgocNhanShop.ViewModel.System.Dtos.Users;
+using NgocNhanShop.ViewModel.System.Users.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
