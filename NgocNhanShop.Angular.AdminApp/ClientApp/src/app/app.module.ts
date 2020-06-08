@@ -14,16 +14,12 @@ import { AdminLayoutComponent } from './shared/modules/layouts/admin-layout/admi
 import { AdminLayoutModule } from './shared/modules/layouts/admin-layout/admin-layout.module';
 import { LoginFormComponent } from './modules/user/system/login/login-form.component';
 import { RegisterUserFormComponent } from './modules/user/system/register/register-user-form.component';
-import { UserComponent } from './modules/user/user.component';
 import { UserModule } from './modules/user/user.module';
 import { DatePipe } from '@angular/common';
-import { AddUserComponent } from './modules/user/add/add-user.component';
-import { EditUserComponent } from './modules/user/edit/edit-user.component';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { DetailUserComponent } from './modules/user/detail/detail-user.component';
-import { DeleteUserComponent } from './modules/user/delete/delete-user.component';
 import { RoleModule } from './modules/role/role.module';
+import { ActionModule } from './modules/action/action.module';
 
 @NgModule({
   declarations: [
@@ -32,26 +28,26 @@ import { RoleModule } from './modules/role/role.module';
     RegisterUserFormComponent,
     AlertComponent,
     AdminLayoutComponent,
-    UserComponent,
-    AddUserComponent,
-    EditUserComponent,
-    DetailUserComponent,
-    DeleteUserComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
     AppRoutingModule,
-    FormsModule,
     ReactiveFormsModule,
+
+    //module playout app
     SidebarModule,
     NavbarModule,
     FooterModule,
     AdminLayoutModule,
+
+    //module app
     UserModule,
+    ActionModule,
     RoleModule,
     BrowserAnimationsModule,
+
     ToastrModule.forRoot({
       timeOut: 5000,
       positionClass: 'toast-top-right',

@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using NgocNhanShop.ViewModel.System.Roles.Dtos;
+using NgocNhanShop.ViewModel.System.Actions.Dtos;
 
 namespace NgocNhanShop.Business.AutoMapper
 {
@@ -44,6 +45,13 @@ namespace NgocNhanShop.Business.AutoMapper
             CreateMap<RoleUpdateRequest, AppRole>()
                 .ForMember(n => n.UpdateTime, t => t.MapFrom(o => DateTime.Now));
             CreateMap<AppRole, RoleViewModel>().ReverseMap();
+
+            //mapping action
+            CreateMap<AppAction, ActionRegisterRequest>().ReverseMap()
+               .ForMember(n => n.CreateTime, t => t.MapFrom(o => DateTime.Now));
+            CreateMap<ActionUpdateRequest, AppAction>()
+                .ForMember(n => n.UpdateTime, t => t.MapFrom(o => DateTime.Now));
+            CreateMap<AppAction, ActionViewModel>().ReverseMap();
 
         }
     }

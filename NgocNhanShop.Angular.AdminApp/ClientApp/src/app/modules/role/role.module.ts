@@ -8,15 +8,14 @@ import { TreeCheckboxesComponent } from 'src/app/shared/components/tree-checkbox
 import { RoleRoutingModule } from './role.routing';
 import { RoleComponent } from './role.component';
 import { AddRoleComponent } from './add/add-role.component';
-import { JwPaginationComponent } from 'src/app/shared/components/jw-pagination/jw-pagination.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { JwPaginationModule } from 'src/app/shared/components/jw-pagination/jw-pagination.module';
 
 @NgModule({
   declarations: [
     TreeCheckboxesComponent,
     RoleComponent,
-    AddRoleComponent,
-    JwPaginationComponent,
+    AddRoleComponent
   ],
   imports: [
     CommonModule,
@@ -27,9 +26,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatCheckboxModule,
     MatInputModule,
     MatIconModule,
-
-  ], exports: [
-    JwPaginationComponent
+    JwPaginationModule,
   ]
 })
 export class RoleModule { }

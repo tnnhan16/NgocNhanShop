@@ -12,7 +12,7 @@ namespace NgocNhanShop.Api.Controllers
 {
     [Route("api/[controller]")]
     [Authorize]
-    public class UsersController : BaseController
+    public class UsersController : ControllerBase
     {
         private readonly IUserService _userService;
         public UsersController(IUserService userService)

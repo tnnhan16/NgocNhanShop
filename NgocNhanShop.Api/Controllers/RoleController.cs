@@ -12,7 +12,7 @@ namespace NgocNhanShop.Api.Controllers
 {
     [Route("api/[controller]")]
     [Authorize]
-    public class RoleController : BaseController
+    public class RoleController : ControllerBase
     {
         private readonly IRoleService _roleService;
         public RoleController(IRoleService roleService)

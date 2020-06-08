@@ -27,6 +27,7 @@ using NgocNhanShop.EF.Data;
 using NgocNhanShop.Utilities.Constant;
 using NgocNhanShop.Validator.Validator.Users;
 using NgocNhanShop.Business.System.Roles;
+using NgocNhanShop.Business.System.Action;
 
 namespace NgocNhanShop.Api
 {
@@ -72,6 +73,8 @@ namespace NgocNhanShop.Api
             services.AddTransient<IUserService, UserService>();
 
             services.AddTransient<IRoleService, RoleService>();
+
+            services.AddTransient<IActionService, ActionService>();
 
             services.AddControllers().AddFluentValidation(fv=>fv.RegisterValidatorsFromAssemblyContaining<UserLoginRequestValidator>());
 
