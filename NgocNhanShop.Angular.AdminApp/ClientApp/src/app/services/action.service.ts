@@ -1,19 +1,20 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { User } from '../models/user';
-import { map, catchError } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { ResponseApi } from '../models/response-api';
 import { PagingResponseApi } from '../models/paging-response-api';
 import { Action } from '../models/action';
+import { RequestBase } from '../models/request-base';
 
 
 @Injectable({ providedIn: 'root' })
 export class ActionService {
     constructor(private http: HttpClient) { }
 
-    getAll() {
-        return this.http.get<ResponseApi<PagingResponseApi<Action[]>>>(environment.ApiUrlBase + '/api/action/GetAllPaging').pipe(
+    getAll(request:RequestBase) {
+        return this.http.get<ResponseApi<PagingResponseApi<Action[]>>>(environment.ApiUrlBase 
+            + '/api/action/GetAllPaging?pageIndex=' + request.pageIndex +'&pageSize=' + request.pageSize +'&keyword=' + request.keyword).pipe(
             map(res=>{
                 const actions: Action[] = [];
                 res.resultObj.items.forEach(item => {

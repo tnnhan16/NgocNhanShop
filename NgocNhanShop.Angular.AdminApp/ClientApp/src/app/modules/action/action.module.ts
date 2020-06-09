@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ActionRoutingModule } from './action.routing';
 import { ActionComponent } from './action.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { JwPaginationModule } from 'src/app/shared/components/jw-pagination/jw-pagination.module';
 
 @NgModule({
   declarations: [
@@ -13,6 +14,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ActionRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    JwPaginationModule,
   ]
 })
 export class ActionModule { }

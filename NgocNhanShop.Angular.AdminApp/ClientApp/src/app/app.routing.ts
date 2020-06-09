@@ -10,8 +10,6 @@ import { AddUserComponent } from './modules/user/add/add-user.component';
 import { EditUserComponent } from './modules/user/edit/edit-user.component';
 import { DetailUserComponent } from './modules/user/detail/detail-user.component';
 import { DeleteUserComponent } from './modules/user/delete/delete-user.component';
-import { RoleComponent } from './modules/role/role.component';
-import { AddRoleComponent } from './modules/role/add/add-role.component';
 
 const routes: Routes = [
     { path: 'admin', component: AdminLayoutComponent, canActivate: [AuthGuard],
@@ -26,6 +24,10 @@ const routes: Routes = [
         {
             path: 'role',
             loadChildren: () => import('./modules/role/role.module').then(m => m.RoleModule),    
+        },
+        {
+            path: 'action',
+            loadChildren: () => import('./modules/action/action.module').then(m => m.ActionModule),    
         }
     ]},
     { path: 'login', component: LoginFormComponent },
