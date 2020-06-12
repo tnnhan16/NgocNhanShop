@@ -12,41 +12,40 @@ import { take } from 'rxjs/operators';
 export class ActionComponent implements OnInit {
   items: Action[];
   total:number;
-  pageOfItems: Array<Action>;
   pageIndex:number;
   pageSize:number;
-  maxPages:number = 1;
+  pageCount:number = 1;
+
+
   constructor(private actionService: ActionService) { }
 
   ngOnInit() {
-    let request= new RequestBase();
-    request.keyword = '';
-    this.actionService.getAll(request)
+    let request = new RequestBase();
+    this.getPagingAll(request);
+  }
+
+  onChangePage(page:number) {
+    let request = new RequestBase();
+    request.pageIndex = page;
+    this.getPagingAll(request);
+  }
+
+  getPagingAll(request: RequestBase){
+    return this.actionService.getAll(request)
     .subscribe(
       result => {
         this.items = result.resultObj.items;
         this.total = result.resultObj.total;
         this.pageSize = result.resultObj.pageSize;
-        this.maxPages = result.resultObj.pageCount;
+        this.pageCount = result.resultObj.pageCount;
       },
       error => console.error(error)
       );
   }
-  onChangePage(page:number) {
-    let request= new RequestBase();
-    request.keyword = '';
-    request.pageIndex = page;
-    this.actionService.getAll(request).pipe(take(1))
-    .subscribe(
-      result => {
-        this.items = result.resultObj.items;
-        this.total = result.resultObj.total;
-        this.pageIndex = result.resultObj.pageIndex;
-        this.pageSize = result.resultObj.pageSize;
-        this.maxPages = result.resultObj.pageCount;
-      },
-      error => console.error(error)
-      );
+
+  onEdit(id:string, description:string){
+    alert(description)
+
   }
 
 }

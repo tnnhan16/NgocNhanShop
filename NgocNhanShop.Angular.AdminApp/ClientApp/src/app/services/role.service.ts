@@ -6,14 +6,16 @@ import { map, catchError } from 'rxjs/operators';
 import { ResponseApi } from '../models/response-api';
 import { PagingResponseApi } from '../models/paging-response-api';
 import { Role } from '../models/role';
+import { RequestBase } from '../models/request-base';
 
 
 @Injectable({ providedIn: 'root' })
 export class RoleService {
     constructor(private http: HttpClient) { }
 
-    getAll() {
-        return this.http.get<ResponseApi<PagingResponseApi<Role[]>>>(environment.ApiUrlBase + '/api/role/GetAllPaging').pipe(
+    getAll(request : RequestBase) {
+        return this.http.get<ResponseApi<PagingResponseApi<Role[]>>>(environment.ApiUrlBase 
+            + '/api/role/GetAllPaging?pageIndex=' + request.pageIndex +'&pageSize=' + request.pageSize +'&keyword=' + request.keyword).pipe(
             map(res=>{
                 const roles: Role[] = [];
                 res.resultObj.items.forEach(item => {

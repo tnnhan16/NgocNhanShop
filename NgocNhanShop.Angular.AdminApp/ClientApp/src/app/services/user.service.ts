@@ -5,14 +5,16 @@ import { User } from '../models/user';
 import { map, catchError } from 'rxjs/operators';
 import { ResponseApi } from '../models/response-api';
 import { PagingResponseApi } from '../models/paging-response-api';
+import { RequestBase } from '../models/request-base';
 
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
     constructor(private http: HttpClient) { }
 
-    getAll() {
-        return this.http.get<ResponseApi<PagingResponseApi<User[]>>>(environment.ApiUrlBase + '/api/users/GetAllPaging').pipe(
+    getAll(request:RequestBase) {
+        return this.http.get<ResponseApi<PagingResponseApi<User[]>>>(environment.ApiUrlBase 
+            + '/api/users/GetAllPaging?pageIndex=' + request.pageIndex +'&pageSize=' + request.pageSize +'&keyword=' + request.keyword).pipe(
             map(res=>{
                 const users: User[] = [];
                 res.resultObj.items.forEach(item => {

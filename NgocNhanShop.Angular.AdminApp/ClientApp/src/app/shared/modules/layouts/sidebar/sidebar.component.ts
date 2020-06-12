@@ -14,7 +14,7 @@ export const ROUTES: RouteInfo[] = [
     { path: '/notifications',   title: 'Notifications',     icon:'nc-bell-55',    class: '' },
     { path: '/admin/users',     title: 'Người dùng',        icon:'nc-single-02',  class: '' },
     { path: '/admin/role',      title: 'Roles',             icon:'nc-settings-gear-65',    class: '' },
-    { path: '/typography',      title: 'Typography',        icon:'nc-caps-small', class: '' },
+    { path: '/admin/action',    title: 'Settings',        icon:'nc-icon nc-settings', class: '' },
 ];
 
 @Component({
