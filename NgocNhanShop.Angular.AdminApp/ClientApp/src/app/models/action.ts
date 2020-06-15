@@ -2,12 +2,12 @@ import { DatePipe } from "@angular/common";
 import { Role } from "./role";
 
 export interface IAction {
-    id: string;
+    id: any;
     controllerName: string;
     actionName: string;
     description: string;
-    userCreate: string;
-    userUpdate:string;
+    userCreate: any;
+    userUpdate:any;
     createTime:Date;
     updateTime:Date;
     roles:Role[];
@@ -15,12 +15,12 @@ export interface IAction {
 }
 
 export class Action implements IAction {
-    id: string;
+    id: any;
     controllerName: string;
     actionName: string;
     description: string;
-    userCreate: string;
-    userUpdate:string;
+    userCreate: any;
+    userUpdate:any;
     createTime:Date;
     updateTime:Date;
     roles:Role[];

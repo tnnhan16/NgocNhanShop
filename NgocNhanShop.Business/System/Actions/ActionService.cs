@@ -112,7 +112,7 @@ namespace NgocNhanShop.Business.System.Action
         }
         public async Task<ApiResult<Message>> Update(Guid actionId, ActionUpdateRequest request)
         {
-            var action = await _context.AppActions.FindAsync(actionId.ToString());
+            var action = await _context.AppActions.FindAsync(actionId);
             _mapper.Map<ActionUpdateRequest, AppAction>(request, action);
             _context.AppActions.Update(action);
             var result = await _context.SaveChangesAsync();

@@ -66,6 +66,7 @@ namespace NgocNhanShop.Business.System
                 Token = new JwtSecurityTokenHandler().WriteToken(token),
                 User = new UserUpdateRequest
                 {
+                    Id = user.Id,
                     FirstName = user.FirstName,
                     LastName = user.LastName,
                     Email = user.Email,

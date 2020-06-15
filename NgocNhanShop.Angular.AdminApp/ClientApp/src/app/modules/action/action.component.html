@@ -1,3 +1,5 @@
+
+<button (click)="RenderAcrion()" type="button" class="btn btn-primary btn-round btn-custom"><i class="fa fa-plus-circle fa-lg" aria-hidden="true"></i> Cập nhật các quyền của hệ thống</button>
 <table class="table table-striped table-border table-hover table-custom" aria-labelledby="tableLabel" *ngIf="items">
   <thead>
     <tr>
@@ -11,9 +13,10 @@
     <tr *ngFor="let item of items">
       <td>{{ item.controllerName }}</td>
       <td>{{ item.actionName }}</td>
-      <td>{{ item.description }}
-        <input class="form-control" *ngIf="true" #description
-          (blur)="onEdit(item.id, description.value); description.value='' " type="text" value="{{item.description}}"/>
+      <td (dblclick)="ShowOrHiden(item)">
+        <ng-container *ngIf="item.id != idActionSelected">{{ item.description }}</ng-container>
+        <input [autofocus] class="form-control" *ngIf="item.id == idActionSelected" #description_input
+          (blur)="onEdit(item, description_input.value);" (keydown.enter)="onEdit(item, description_input.value);"type="text" value="{{ item.description }}"/>
       </td>
       <td class="text-center link-action">
         <a routerLink="/admin/action/delete/{{ item.id }}" title="xóa"><i class="fa fa-trash-o fa-lg" aria-hidden="true"></i></a>

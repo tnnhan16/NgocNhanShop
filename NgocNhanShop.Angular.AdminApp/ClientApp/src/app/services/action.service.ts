@@ -6,6 +6,10 @@ import { ResponseApi } from '../models/response-api';
 import { PagingResponseApi } from '../models/paging-response-api';
 import { Action } from '../models/action';
 import { RequestBase } from '../models/request-base';
+import { UserInfo } from '../models/user-info';
+import { User } from '../models/user';
+import { RequestData } from '../models/request-data';
+import { RequestActionUpdate } from '../models/action/request-action-update';
 
 
 @Injectable({ providedIn: 'root' })
@@ -28,17 +32,17 @@ export class ActionService {
     getById(idAction : string) {
         return this.http.get<ResponseApi<Action>>(environment.ApiUrlBase + '/api/action/getbyactionid/'+ idAction).pipe(
             map(res=>{
-                res.resultObj = new Action( res.resultObj);
+                res.resultObj = new Action(res.resultObj);
                 return res
             })
         );
     }
 
-    register(action: Action) {
-        return this.http.post<ResponseApi<boolean>>(environment.ApiUrlBase + '/api/action/render', action);
+    render(requestData: RequestData) {
+        return this.http.post<ResponseApi<boolean>>(environment.ApiUrlBase + '/api/action/render', requestData);
     }
 
-    edit(idAction : string, action: Action) {
+    edit(idAction : string, action: RequestActionUpdate) {
         return this.http.put<ResponseApi<boolean>>(environment.ApiUrlBase + '/api/action/update/'+ idAction, action);
     }
 

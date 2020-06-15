@@ -1,7 +1,7 @@
 import { DatePipe } from "@angular/common";
 
 export interface IUser {
-    id: string;
+    id: any;
     userName: string;
     password: string;
     confirmPassword:string;
@@ -10,10 +10,12 @@ export interface IUser {
     email:string;
     birthDay:Date;
     phoneNumber:string;
+    userCreate:any;
+    userUpdate:any;
 }
 
 export class User implements IUser {
-    id: string;
+    id: any;
     userName: string;
     password: string;
     confirmPassword:string;
@@ -22,6 +24,8 @@ export class User implements IUser {
     email:string;
     birthDay:Date;
     phoneNumber:string;
+    userCreate:any;
+    userUpdate:any;
     constructor(data: IUser){
         this.id = data.id;
         this.userName = data.userName;
@@ -30,6 +34,7 @@ export class User implements IUser {
         this.email = data.email;
         this.birthDay = data.birthDay;
         this.phoneNumber = data.phoneNumber;
-
+        this.userCreate = data.userCreate;
+        this.userUpdate = data.userUpdate;
     }
 }
