@@ -84,5 +84,12 @@ namespace NgocNhanShop.Api.Controllers
             }
             return Ok(result);
         }
+
+        [HttpGet("GetActionOptions")]
+        public async Task<IActionResult> GetActionOptions()
+        {
+            var result = await _actionService.GetOptions();
+            return Ok(result);
+        }
     }
 }

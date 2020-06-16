@@ -15,7 +15,7 @@ import { JwPaginationModule } from 'src/app/shared/components/jw-pagination/jw-p
   declarations: [
     TreeCheckboxesComponent,
     RoleComponent,
-    AddRoleComponent
+    AddRoleComponent,
   ],
   imports: [
     CommonModule,

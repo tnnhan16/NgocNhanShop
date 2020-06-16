@@ -1,192 +1,61 @@
 import {SelectionModel} from '@angular/cdk/collections';
 import {FlatTreeControl} from '@angular/cdk/tree';
-import {Component, Injectable} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
-import {BehaviorSubject} from 'rxjs';
 import { RequestBase } from 'src/app/models/request-base';
-import { Action } from 'src/app/models/action';
-import { HttpClient } from '@angular/common/http';
-import { ResponseApi } from 'src/app/models/response-api';
-import { PagingResponseApi } from 'src/app/models/paging-response-api';
-import { environment } from 'src/environments/environment';
-import { map } from 'rxjs/operators';
+import { TreeCheckBoxesService } from 'src/app/shared/services/tree-checkboxes.service';
 
-/**
- * Node for to-do item
- */
 export class TodoItemNode {
   children: TodoItemNode[];
   item: string;
 }
 
-/** Flat to-do item node with expandable and level information */
 export class TodoItemFlatNode {
   item: string;
   level: number;
   expandable: boolean;
 }
 
-/**
- * The Json object for to-do list data.
- */
 
-
-/**
- * Checklist database, it can build a tree structured Json object.
- * Each node in Json object represents a to-do item or a category.
- * If a node is a category, it has children items and new items can be added under the category.
- */
-@Injectable({ providedIn: 'root' })
-export class getData {
-  actions = {
-    Groceries: {
-      'insert': "insert",
-      'update': "update",
-      'delete': "delete",
-    },
-    Home: {
-      'insert': "insert",
-      'update': "update",
-      'delete': "delete",
-    },
-  };
-  dataChange = new BehaviorSubject<TodoItemNode[]>([]);
-
-  get data(): TodoItemNode[] { return this.dataChange.value; }
-
-  constructor(private http: HttpClient) {
-    let request = new RequestBase
-    this.getAll(request);
-    // this.initialize();
-  }
-  getAll(request:RequestBase) {
-    return this.http.get<ResponseApi<PagingResponseApi <Action[]>>>(environment.ApiUrlBase 
-        + '/api/action/GetAllPaging?pageIndex=' + request.pageIndex +'&pageSize=' + request.pageSize +'&keyword=' + request.keyword).pipe(
-        map(res=>{
-            let actions:any
-            res.resultObj.items.forEach(item => {
-              let controllerName = item.controllerName
-              actions = {
-                asasasasa: {
-                  'insert': "insert",
-                  'update': "update",
-                  'delete': "delete",
-                },
-              };
-            });
-            if(actions){
-            const data = this.buildFileTree(actions, 0);
-            // Notify the change.
-            this.dataChange.next(data);
-            }
-            res.resultObj.items = actions
-            return res
-        })
-    );
-  }
-  initialize() {
-    // Build the tree nodes from Json object. The result is a list of `TodoItemNode` with nested
-    //     file node as children.
-    const data = this.buildFileTree(this.actions, 0);
-
-    // Notify the change.
-    this.dataChange.next(data);
-  }
-
-  /**
-   * Build the file structure tree. The `value` is the Json object, or a sub-tree of a Json object.
-   * The return value is the list of `TodoItemNode`.
-   */
-  buildFileTree(obj: {[key: string]: any}, level: number): TodoItemNode[] {
-    return Object.keys(obj).reduce<TodoItemNode[]>((accumulator, key) => {
-      const value = obj[key];
-      const node = new TodoItemNode();
-      node.item = key;
-
-      if (value != null) {
-        if (typeof value === 'object') {
-          node.children = this.buildFileTree(value, level + 1);
-        } else {
-          node.item = value;
-        }
-      }
-
-      return accumulator.concat(node);
-    }, []);
-  }
-
-  updateItem(node: TodoItemNode, name: string) {
-    node.item = name;
-    this.dataChange.next(this.data);
-  }
-}
-
-/**
- * @title Tree with checkboxes
- */
 @Component({
   selector: 'tree-checklist-example',
   templateUrl: 'tree-checkboxes.component.html',
   styleUrls: ['tree-checkboxes.component.css'],
-  providers: [getData]
+  providers: [TreeCheckBoxesService]
 })
-export class TreeCheckboxesComponent {
-  /** Map from flat node to nested node. This helps us finding the nested node to be modified */
+
+export class TreeCheckboxesComponent implements OnInit{
+
   flatNodeMap = new Map<TodoItemFlatNode, TodoItemNode>();
-
-  /** Map from nested node to flattened node. This helps us to keep the same object for selection */
   nestedNodeMap = new Map<TodoItemNode, TodoItemFlatNode>();
-
-  /** A selected parent node to be inserted */
   selectedParent: TodoItemFlatNode | null = null;
-
-  /** The new item's name */
   newItemName = '';
-
   treeControl: FlatTreeControl<TodoItemFlatNode>;
-
   treeFlattener: MatTreeFlattener<TodoItemNode, TodoItemFlatNode>;
-
   dataSource: MatTreeFlatDataSource<TodoItemNode, TodoItemFlatNode>;
+  checklistSelection = new SelectionModel<TodoItemFlatNode>(true);
 
-  /** The selection for checklist */
-  checklistSelection = new SelectionModel<TodoItemFlatNode>(true /* multiple */);
-
-  constructor(private _database: getData) {
-    // this.treeFlattener = new MatTreeFlattener(this.transformer, this.getLevel,
-    //   this.isExpandable, this.getChildren);
-    // this.treeControl = new FlatTreeControl<TodoItemFlatNode>(this.getLevel, this.isExpandable);
-    // this.dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
-
-    // _database.dataChange.subscribe(data => {
-    //   this.dataSource.data = data;
-    // });
-  }
-
-  ngAfterViewInit(){
-
-    this._database.dataChange.subscribe(data => {
-        this.dataSource.data = data;
-        this.treeFlattener = new MatTreeFlattener(this.transformer, this.getLevel,
-        this.isExpandable, this.getChildren);
-        this.treeControl = new FlatTreeControl<TodoItemFlatNode>(this.getLevel, this.isExpandable);
-        this.dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
+  constructor(private _database: TreeCheckBoxesService) {
+    this.treeFlattener = new MatTreeFlattener(this.transformer, this.getLevel,
+    this.isExpandable, this.getChildren);
+    this.treeControl = new FlatTreeControl<TodoItemFlatNode>(this.getLevel, this.isExpandable);
+    this.dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
+    _database.dataChange.subscribe(data => {
+      this.dataSource.data = data;
     });
+  }
+  
+  ngOnInit() {
+    this._database.getActionOptions().subscribe((res) => {
+      console.log('res', res)
+    })
   }
 
   getLevel = (node: TodoItemFlatNode) => node.level;
-
   isExpandable = (node: TodoItemFlatNode) => node.expandable;
-
   getChildren = (node: TodoItemNode): TodoItemNode[] => node.children;
-
   hasChild = (_: number, _nodeData: TodoItemFlatNode) => _nodeData.expandable;
-
   hasNoContent = (_: number, _nodeData: TodoItemFlatNode) => _nodeData.item === '';
-
-  /**
-   * Transformer to convert nested node to flat node. Record the nodes in maps for later use.
-   */
   transformer = (node: TodoItemNode, level: number) => {
     const existingNode = this.nestedNodeMap.get(node);
     const flatNode = existingNode && existingNode.item === node.item
@@ -263,16 +132,12 @@ export class TreeCheckboxesComponent {
   /* Get the parent node of a node */
   getParentNode(node: TodoItemFlatNode): TodoItemFlatNode | null {
     const currentLevel = this.getLevel(node);
-
     if (currentLevel < 1) {
       return null;
     }
-
     const startIndex = this.treeControl.dataNodes.indexOf(node) - 1;
-
     for (let i = startIndex; i >= 0; i--) {
       const currentNode = this.treeControl.dataNodes[i];
-
       if (this.getLevel(currentNode) < currentLevel) {
         return currentNode;
       }

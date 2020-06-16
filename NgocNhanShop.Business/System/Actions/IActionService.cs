@@ -14,6 +14,7 @@ namespace NgocNhanShop.Business.System.Action
         Task<ApiResult<bool>> Delete(Guid actionId);
         Task<ApiResult<PageResult<ActionViewModel>>> GetActionPaging(ActionPageRequest request);
         Task<ApiResult<ActionViewModel>> GetByActionId(Guid actionId);
+        Task<ApiResult<List<ControllerNameOption>>> GetOptions();
 
     }
 }

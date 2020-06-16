@@ -10,6 +10,7 @@ import { UserInfo } from '../models/user-info';
 import { User } from '../models/user';
 import { RequestData } from '../models/request-data';
 import { RequestActionUpdate } from '../models/action/request-action-update';
+import { ControllerNameOption } from '../models/action/controller-name-option';
 
 
 @Injectable({ providedIn: 'root' })
@@ -33,6 +34,19 @@ export class ActionService {
         return this.http.get<ResponseApi<Action>>(environment.ApiUrlBase + '/api/action/getbyactionid/'+ idAction).pipe(
             map(res=>{
                 res.resultObj = new Action(res.resultObj);
+                return res
+            })
+        );
+    }
+
+    getActionOptions() {
+        return this.http.get<ResponseApi<ControllerNameOption[]>>(environment.ApiUrlBase + '/api/action/GetActionOptions/').pipe(
+            map(res=>{
+                const controllerNameOption: ControllerNameOption[] = []
+                res.resultObj.forEach(item => {
+                    controllerNameOption.push(new ControllerNameOption(item))
+                });
+                res.resultObj = controllerNameOption
                 return res
             })
         );

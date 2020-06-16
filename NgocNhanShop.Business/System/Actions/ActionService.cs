@@ -11,6 +11,7 @@ using NgocNhanShop.EF.Data;
 using NgocNhanShop.ViewModel.System.Actions.Dtos;
 using Microsoft.AspNetCore.Mvc;
 using System.Reflection;
+using Microsoft.AspNetCore.Http.Internal;
 
 namespace NgocNhanShop.Business.System.Action
 {
@@ -152,6 +153,39 @@ namespace NgocNhanShop.Business.System.Action
             }
 
             return new ApiErrorResult<bool>("Xóa không thành công");
+        }
+
+        public async Task<ApiResult<List<ControllerNameOption>>> GetOptions()
+        {
+            var actions = await _context.AppActions.ToListAsync();
+
+            List<ControllerNameOption> controllerNames = new List<ControllerNameOption>();
+            List<ActionNameOption> actionNames = new List<ActionNameOption>();
+
+            string controllerName = null;
+
+            foreach (var item in actions)
+            {
+                actionNames.Add(new ActionNameOption
+                {
+                    Id = item.Id,
+                    Description = item.Description,
+                });
+
+                if (item.ControllerName != controllerName)
+                {
+                    controllerNames.Add(new ControllerNameOption
+                    {
+                       ControllerName = item.ControllerName,
+                       ActionNameOptions = actionNames,
+                    });
+
+                    controllerName = item.ControllerName;
+                    actionNames = new List<ActionNameOption>();
+                }
+
+            }
+            return new ApiSuccessResult<List<ControllerNameOption>>(controllerNames);
         }
     }
 }
